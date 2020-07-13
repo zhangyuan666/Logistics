@@ -166,21 +166,21 @@
                  
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user"  value="${sessionScope.send.userName}" id="userName" placeholder="昵称...">
+                    <input type="text" class="form-control form-control-user"  value="${sessionScope.wuliu.userName}" id="userName" placeholder="昵称...">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user"  value="${sessionScope.send.userProvinces}" id="userProvinces" placeholder="省市区...">
+                    <input type="text" class="form-control form-control-user"  value="${sessionScope.wuliu.userProvinces}" id="userProvinces" placeholder="省市区...">
                   </div>
                 </div>
                  <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user"  value="${sessionScope.send.userTel}" id="userTel" placeholder="电话号...">
+                    <input type="text" class="form-control form-control-user"  value="${sessionScope.wuliu.userTel}" id="userTel" placeholder="电话号...">
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user"  value="${sessionScope.send.userAddress}" id="userAddress" placeholder="地址...">
+                  <input type="email" class="form-control form-control-user"  value="${sessionScope.wuliu.userAddress}" id="userAddress" placeholder="地址...">
                 </div>
                 
                 <a href="${pageContext.request.contextPath}/dingdan/userinfo.action" class="btn btn-primary btn-user btn-block">

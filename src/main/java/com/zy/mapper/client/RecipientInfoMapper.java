@@ -19,6 +19,7 @@ public interface RecipientInfoMapper {
     
     int selectByRecipientName(String recipientName);
 
-	List<RecipientInfo> selectAllRecipientInfo();
+	List<RecipientInfo> selectAllRecipientInfo(int userInfoId);
+
 
 }

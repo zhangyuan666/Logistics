@@ -94,11 +94,7 @@ public class DingDanServiceI implements DingDanService {
 		return serviceInfoMapper.selectByServiceName(serviceName);
 	}
 
-	@Override
-	public List<RecipientInfo> selectAllRecipientInfo() {
-		
-		return recipientInfoMapper.selectAllRecipientInfo();
-	}
+	
 
 	@Override
 	public void deleteByrecipientId(int recipientId) {
@@ -133,6 +129,14 @@ public class DingDanServiceI implements DingDanService {
 	public UserInfo selectUserInfo(String userId) {
 		
 		return userInfoMapper.selectByUserid(userId);
+	}
+
+
+
+	@Override
+	public List<RecipientInfo> selectAllRecipientInfo(int userInfoId) {
+		// TODO Auto-generated method stub
+		return recipientInfoMapper.selectAllRecipientInfo(userInfoId);
 	}
 
 

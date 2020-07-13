@@ -39,7 +39,8 @@
                   
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-            		<input type="hidden" id="userInfoId" name="userInfoId"  value="${sessionScope.userinfo.userInfoId}" >
+            		 <input type="hidden" class="form-control form-control-user"  id="userInfoId" name="userInfoId" value="${sessionScope.wuliu.userInfoId}">
+
                     <input type="text" class="form-control form-control-user"  id="recipientName" name="recipientName" placeholder="收件人姓名..." >
             
                   </div>

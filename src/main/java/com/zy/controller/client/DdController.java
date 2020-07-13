@@ -94,7 +94,7 @@ public class DdController {
 			msg.setSuccess(true);
 		} catch (Exception e) {
 			msg.setSuccess(false);
-			msg.setMessage(e.getMessage());
+			msg.setMessage("已存在此收件人，请修改收件人姓名！");
 		}
 		
 		return JSON.toJSONString(msg);
@@ -137,13 +137,23 @@ public class DdController {
 		return JSON.toJSONString(msg);
 	}
 	@RequestMapping("shoujianren")
-	public ModelAndView shoujianren() {
-		ModelAndView mav = new ModelAndView();
-		List<RecipientInfo> list = dingDanService.selectAllRecipientInfo();
-		mav.setViewName("client/shoujianren");
-		mav.addObject("RecipientInfo", list);
-		return mav;
+	public ModelAndView shoujianren(HttpSession session) {
+		 ModelAndView mav = new ModelAndView();
+		Object obj=session.getAttribute("wuliu");
+		 if(obj!=null){
+			 UserInfo userinfo = (UserInfo) obj;
+			 int userInfoId = userinfo.getUserInfoId();
+				List<RecipientInfo> list = dingDanService.selectAllRecipientInfo(userInfoId);
+				mav.setViewName("client/shoujianren");
+				mav.addObject("RecipientInfo", list);
+				return mav;
+		 }else{
+			 mav.setViewName("client/userinfo");
+			 return mav;
+		 }
+		
 	}
+
 	@ResponseBody
 	@RequestMapping("dingdan")
 	public String dingdan(CargoInfo cargoInfo,String serviceName,String recipientName,String userName) {

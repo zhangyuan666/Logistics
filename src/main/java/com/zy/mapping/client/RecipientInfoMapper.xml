@@ -130,11 +130,13 @@
 		from recipient_info
 		where recipient_name = #{recipientName}
 	</select>
-	<select id="selectAllRecipientInfo" resultMap="BaseResultMap">
-		select
-		recipient_info.*
-		from recipient_info left join user_info on user_info.user_info_id
-		=recipient_info.user_info_id
-	</select>
+	
+	 <select id="selectAllRecipientInfo"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    *
+    from recipient_info
+    where user_info_id=#{userInfoId}
+  </select>
+	
 
 </mapper>

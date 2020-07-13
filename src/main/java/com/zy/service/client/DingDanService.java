@@ -19,7 +19,6 @@ public interface DingDanService {
 
 	Integer selectByServiceName(String serviceName);
 
-	List<RecipientInfo> selectAllRecipientInfo();
 
 	void deleteByrecipientId(int recipientId);
 
@@ -32,5 +31,7 @@ public interface DingDanService {
 	List<OrderInfo> selectWuliu(int userInfoId);
 
 	UserInfo selectUserInfo(String userId);
+
+	List<RecipientInfo> selectAllRecipientInfo(int userInfoId);
 
 }
