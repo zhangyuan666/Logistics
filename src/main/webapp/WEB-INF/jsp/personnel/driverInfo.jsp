@@ -53,13 +53,11 @@
 							}, {
 								field : 'driverId',
 								title : '配送员ID',
-								width : 100,
-								sortable : true
+								width : 100
 							}, {
 								field : 'driverName',
 								title : '姓名',
-								width : 163,
-								sortable : true
+								width : 163
 							} ] ],
 							columns : [ [ {
 								field : 'driverTel',
@@ -72,8 +70,7 @@
 							},{
 								field : 'warehouseId',
 								title : '服务点ID',
-								width : 163,
-								sortable : true
+								width : 163
 							}] ]
 						});
 	});
@@ -189,7 +186,7 @@
 					<td>配送员ID：<input id="driverId" class="easyui-textbox" data-options=""
 						style="width: 200px;">
 					</td>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配送员姓名：<input id="driverName" class="easyui-textbox" data-options=""
+					<td>配送员姓名：<input id="driverName" class="easyui-textbox" data-options=""
 						style="width: 200px;">
 					</td>
 					<td><a onclick="query()" class="easyui-linkbutton"

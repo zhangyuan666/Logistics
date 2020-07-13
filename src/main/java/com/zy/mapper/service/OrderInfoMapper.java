@@ -2,6 +2,8 @@ package com.zy.mapper.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zy.entity.service.OrderInfo;
 
 public interface OrderInfoMapper {
@@ -25,7 +27,10 @@ public interface OrderInfoMapper {
 	List<OrderInfo> orderCombobox();
 
 	int updateOrderStateByKey(OrderInfo orderInfo);
-	
-//
+
 	List<OrderInfo> selectAllDd(int userInfoId);
+
+	int updateOrder(@Param("orderId")String orderId, @Param("courierId")Integer courierId);
+
+	int updateOrderDriver(@Param("orderId")String orderId, @Param("driverId")Integer driverId);
 }

@@ -53,13 +53,11 @@
 							}, {
 								field : 'courierId',
 								title : '快递员ID',
-								width : 100,
-								sortable : true
+								width : 100
 							}, {
 								field : 'courierName',
 								title : '姓名',
-								width : 163,
-								sortable : true
+								width : 163
 							} ] ],
 							columns : [ [ {
 								field : 'courierTel',
@@ -72,8 +70,7 @@
 							},{
 								field : 'serviceId',
 								title : '服务点ID',
-								width : 163,
-								sortable : true
+								width : 163
 							}] ]
 						});
 	});
@@ -190,7 +187,7 @@
 					<td>快递员ID：<input id="courierId" class="easyui-textbox" data-options=""
 						style="width: 200px;">
 					</td>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;快递员姓名：<input id="courierName" class="easyui-textbox" data-options=""
+					<td>快递员姓名：<input id="courierName" class="easyui-textbox" data-options=""
 						style="width: 200px;">
 					</td>
 					<td><a onclick="query()" class="easyui-linkbutton"

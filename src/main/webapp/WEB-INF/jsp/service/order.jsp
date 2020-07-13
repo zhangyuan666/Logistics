@@ -98,22 +98,22 @@
 								formatter : function(value) {
 									return value.recipientName;
 								}
-								
-							},{
+
+							}, {
 								field : 'xxxx',
 								title : '收件人电话',
 								width : 100,
-								formatter : function(value,row,index) {
+								formatter : function(value, row, index) {
 									return row.recInfo.recipientTel;
 								}
-							},  {
+							}, {
 								field : 'userInfo',
 								title : '寄件人姓名',
 								width : 100,
-								formatter : function(value,row,index) {
+								formatter : function(value, row, index) {
 									return row.userInfo.userName;
 								}
-								
+
 							} ] ]
 						});
 	});
@@ -135,7 +135,8 @@
 		var rows = $('#dg').datagrid('getChecked');
 		if (rows.length > 0) {
 			//删除
-			$.messager.confirm(
+			$.messager
+					.confirm(
 							'提示',
 							'您确定要删除吗？',
 							function(r) {
@@ -188,8 +189,6 @@
 </script>
 </head>
 <body class="easyui-layout">
-
-
 	<!-- 搜索框 -->
 	<div data-options="region:'north',title:'查询',border:false"
 		style="height: 70px;">
@@ -197,10 +196,11 @@
 
 			<table>
 				<tr>
-					<td>订单编号&#12288<input id="id" class="easyui-textbox" data-options=""
-						style="width: 200px;">
+					<td>订单编号：&#12288<input id="id" class="easyui-textbox"
+						data-options="" style="width: 200px;">
 					</td>
-					<td>&#12288物流状态&#12288<select id="status" class="easyui-combobox"
+					<td>&#12288物流状态：&#12288<select id="status"
+						class="easyui-combobox"
 						data-options="editable:false,panelHeight:68" style="width: 100px;">
 							<option value="">全部</option>
 							<option value="0">未收货</option>

@@ -48,7 +48,7 @@ public class OrderController {
 		try {
 			int res = oservice.orderRemove(ids);
 			msg.setSuccess(true);
-			msg.setMessage("成功删除" + res + "数据！");
+			msg.setMessage("成功删除" + res + "条数据！");
 		} catch (Exception e) {
 			msg.setSuccess(false);
 			msg.setMessage(e.getMessage());

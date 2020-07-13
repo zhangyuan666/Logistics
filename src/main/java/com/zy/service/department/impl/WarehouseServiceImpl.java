@@ -127,4 +127,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 		// TODO Auto-generated method stub
 		return oimapper.orderCombobox();
 	}
+
+	@Override
+	public int updateOrderDriver(String orderId, Integer driverId) {
+		// TODO Auto-generated method stub
+		return oimapper.updateOrderDriver(orderId,driverId);
+	}
 }

@@ -124,12 +124,13 @@ public class ServiceInfoController {
 	// 配送
 	@ResponseBody
 	@RequestMapping("deliveryserviceInfo")
-	public String deliveryserviceInfo(CourierInfo courierInfo) {
+	public String deliveryserviceInfo(CourierInfo courierInfo,String orderId) {
 		MsgUtil msg = new MsgUtil();
 		try {
 			int res = serviceInfoService.deliveryserviceInfo(courierInfo);
+			serviceInfoService.updateOrder(orderId,courierInfo.getCourierId());
 			msg.setSuccess(true);
-			msg.setMessage("成功配送" + res + "条数据！");
+			msg.setMessage("成功分配" + res + "条配送任务！");
 		} catch (Exception e) {
 			msg.setSuccess(false);
 			msg.setMessage(e.getMessage());
@@ -167,7 +168,7 @@ public class ServiceInfoController {
 		try {
 			int res = serviceInfoService.receiveserviceInfo(courierInfo);
 			msg.setSuccess(true);
-			msg.setMessage("成功揽件" + res + "条数据！");
+			msg.setMessage("成功分配" + res + "条揽件数据！");
 		} catch (Exception e) {
 			msg.setSuccess(false);
 			msg.setMessage(e.getMessage());
@@ -191,7 +192,7 @@ public class ServiceInfoController {
 		try {
 			int res = serviceInfoService.logisticsserviceInfo(orderInfo,logisticsInfo);
 			msg.setSuccess(true);
-			msg.setMessage("成功更新" + res + "条数据！");
+			msg.setMessage("成功更新" + res + "条物流信息！");
 		} catch (Exception e) {
 			msg.setSuccess(false);
 			msg.setMessage(e.getMessage());

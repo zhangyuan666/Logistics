@@ -32,7 +32,7 @@ function save() {
 		<div style="margin-bottom: 5px">
 			订单编号：<input id="orderId" name="orderId" class="easyui-combobox"
 			style="width: 70%; height: 30px; padding: 12px;"
-			data-options="valueField:'orderId',editable:false,multiple:true,textField:'orderId',panelHeight:120,
+			data-options="valueField:'orderId',editable:false,textField:'orderId',panelHeight:120,
 			url:'${pageContext.request.contextPath}/personnel/driverInfo/DlogisticsIdCombobox.action'" />
 		</div>
 		<div style="margin-bottom: 5px">

@@ -38,4 +38,6 @@ public interface WarehouseService {
 	int logisticsInfoUpdate(LogisticsInfo logisticsInfoUpdate);
 
 	List<OrderInfo> selectOrderList();
+
+	int updateOrderDriver(String orderId, Integer driverId);
 }

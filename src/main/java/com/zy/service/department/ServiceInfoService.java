@@ -2,7 +2,6 @@ package com.zy.service.department;
 
 import java.util.List;
 
-
 import com.zy.entity.department.ServiceInfo;
 import com.zy.entity.easyui.DataGridResult;
 import com.zy.entity.personnel.CourierInfo;
@@ -20,37 +19,18 @@ public interface ServiceInfoService {
 
 	int editserviceInfo(ServiceInfo serviceInfo);
 
-
 	int deliveryserviceInfo(CourierInfo courierInfo);
 
-
-	/*List<CourierInfo> setValues(Integer courierId);*/
+	/* List<CourierInfo> setValues(Integer courierId); */
 
 	List<CourierInfo> courierCombobox();
 
 	int receiveserviceInfo(CourierInfo courierInfo);
 
-
-
 	List<OrderInfo> orderCombobox();
 
-	
+	int logisticsserviceInfo(OrderInfo orderInfo, String logisticsInfo);
 
-	int logisticsserviceInfo(OrderInfo orderInfo,String logisticsInfo);
-
-	
-
-	
-	
-
-
-
-
-	
-
-	
-
-
-	
+	int updateOrder(String orderId, Integer courierId);
 
 }

@@ -112,4 +112,10 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
 		return oimapper.orderCombobox();
 	}
 
+	@Override
+	public int updateOrder(String orderId, Integer courierId) {
+		// TODO Auto-generated method stub
+		return oimapper.updateOrder(orderId,courierId);
+	}
+
 }

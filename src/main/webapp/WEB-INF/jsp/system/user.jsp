@@ -265,13 +265,13 @@
 
 			<table>
 				<tr>
-					<td>账号<input id="id" class="easyui-textbox" data-options=""
+					<td>账号：<input id="id" class="easyui-textbox" data-options=""
 						style="width: 200px;">
 					</td>
-					<td>名称<input id="name" class="easyui-textbox" data-options=""
+					<td>名称：<input id="name" class="easyui-textbox" data-options=""
 						style="width: 200px;">
 					</td>
-					<td>状态<select id="status" class="easyui-combobox"
+					<td>状态：<select id="status" class="easyui-combobox"
 						data-options="editable:false,panelHeight:68" style="width: 100px;">
 							<option value="">全部</option>
 							<option value="0">正常</option>

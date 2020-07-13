@@ -19,7 +19,8 @@
 			property="recipientId" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		order_id, order_creattime, cargo_id, courier_id, driver_id, user_info_id,
+		order_id, order_creattime, cargo_id, courier_id, driver_id,
+		user_info_id,
 		order_state,
 		recipient_id
 	</sql>
@@ -31,18 +32,24 @@
 		where order_id = #{orderId,jdbcType=VARCHAR}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from order_info
+		delete from
+		order_info
 		where order_id = #{orderId,jdbcType=VARCHAR}
 	</delete>
 	<insert id="insert"
 		parameterType="com.zy.entity.service.OrderInfo">
-		insert into order_info (order_id, order_creattime, cargo_id,
+		insert into order_info (order_id, order_creattime,
+		cargo_id,
 		courier_id, driver_id, user_info_id,
-		order_state, recipient_id)
-		values (#{orderId,jdbcType=VARCHAR}, #{orderCreattime,jdbcType=TIMESTAMP},
+		order_state,
+		recipient_id)
+		values (#{orderId,jdbcType=VARCHAR},
+		#{orderCreattime,jdbcType=TIMESTAMP},
 		#{cargoId,jdbcType=INTEGER},
-		#{courierId,jdbcType=INTEGER}, #{driverId,jdbcType=INTEGER}, #{userInfoId,jdbcType=INTEGER},
-		#{orderState,jdbcType=INTEGER}, #{recipientId,jdbcType=INTEGER})
+		#{courierId,jdbcType=INTEGER}, #{driverId,jdbcType=INTEGER},
+		#{userInfoId,jdbcType=INTEGER},
+		#{orderState,jdbcType=INTEGER},
+		#{recipientId,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.zy.entity.service.OrderInfo">
@@ -131,14 +138,22 @@
 	<update id="updateByPrimaryKey"
 		parameterType="com.zy.entity.service.OrderInfo">
 		update order_info
-		set order_creattime = #{orderCreattime,jdbcType=TIMESTAMP},
-		cargo_id = #{cargoId,jdbcType=INTEGER},
-		courier_id = #{courierId,jdbcType=INTEGER},
-		driver_id = #{driverId,jdbcType=INTEGER},
-		user_info_id = #{userInfoId,jdbcType=INTEGER},
-		order_state = #{orderState,jdbcType=INTEGER},
-		recipient_id = #{recipientId,jdbcType=INTEGER}
-		where order_id = #{orderId,jdbcType=VARCHAR}
+		set order_creattime =
+		#{orderCreattime,jdbcType=TIMESTAMP},
+		cargo_id =
+		#{cargoId,jdbcType=INTEGER},
+		courier_id =
+		#{courierId,jdbcType=INTEGER},
+		driver_id =
+		#{driverId,jdbcType=INTEGER},
+		user_info_id =
+		#{userInfoId,jdbcType=INTEGER},
+		order_state =
+		#{orderState,jdbcType=INTEGER},
+		recipient_id =
+		#{recipientId,jdbcType=INTEGER}
+		where order_id =
+		#{orderId,jdbcType=VARCHAR}
 	</update>
 
 
@@ -269,8 +284,10 @@
 	<update id="updateOrderStateByKey"
 		parameterType="com.zy.entity.service.OrderInfo">
 		update order_info
-		set order_state = #{orderState,jdbcType=INTEGER}
-		where order_id = #{orderId,jdbcType=VARCHAR}
+		set order_state =
+		#{orderState,jdbcType=INTEGER}
+		where order_id =
+		#{orderId,jdbcType=VARCHAR}
 	</update>
 
 
@@ -317,16 +334,37 @@
 		o.order_creattime AS otime,
 		o.order_state AS ostate,
 		c.cargo_name AS cname,
-		co.courier_name AS coname,
+		co.courier_name AS
+		coname,
 		co.courier_tel AS cotel,
 		l.logistics_info AS loginfo
 		FROM
 		order_info o
 		LEFT JOIN cargo_info c ON o.cargo_id = c.cargo_id
-		LEFT JOIN courier_info co ON o.courier_id = co.courier_id
-		LEFT JOIN logistics_info l ON o.order_id = l.order_id
+		LEFT JOIN
+		courier_info co ON o.courier_id = co.courier_id
+		LEFT JOIN
+		logistics_info l ON o.order_id = l.order_id
 		WHERE
 		o.user_info_id=#{id}
 	</select>
+
+	<update id="updateOrder">
+		update order_info
+		set
+		courier_id = #{courierId,jdbcType=INTEGER}
+		where order_id =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<update id="updateOrderDriver">
+		update order_info
+		set
+		driver_id =
+		#{driverId,jdbcType=INTEGER}
+		where order_id =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
 
 </mapper>

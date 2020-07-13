@@ -141,10 +141,11 @@ public class WarehouseController {
 	//仓库派送任务
 	@ResponseBody
 	@RequestMapping("driverTask")
-	public String driverTask(DriverInfo driverTask) {
+	public String driverTask(DriverInfo driverTask,String orderId) {
 		MsgUtil msg = new MsgUtil();
 		try {
 			int res = warehouseService.driverTask(driverTask);
+			warehouseService.updateOrderDriver(orderId,driverTask.getDriverId());
 			msg.setSuccess(true);
 			msg.setMessage("成功分配" + res + "条任务！");
 		} catch (Exception e) {

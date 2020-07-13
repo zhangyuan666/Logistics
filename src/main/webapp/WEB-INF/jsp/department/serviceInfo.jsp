@@ -197,13 +197,13 @@
 
 			<table>
 				<tr>
-					<td>服务点ID<input id="serviceId" class="easyui-textbox" data-options=""
+					<td>服务点ID：<input id="serviceId" class="easyui-textbox" data-options=""
 						style="width: 100px;">
 					</td>
-					<td>名称<input id="serviceName" class="easyui-textbox" data-options=""
+					<td>名称：<input id="serviceName" class="easyui-textbox" data-options=""
 						style="width: 200px;">
 					</td>
-					<td>地址<input id="serviceAddress" class="easyui-textbox" data-options=""
+					<td>地址：<input id="serviceAddress" class="easyui-textbox" data-options=""
 						style="width: 200px;">
 					</td>
 					

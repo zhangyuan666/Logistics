@@ -58,10 +58,18 @@
 	<form  id="serviceInfoDeliveryForm" method="post">
 		
 			<div style="margin-bottom: 5px">
+			订单编号：<input id="orderId" name="orderId" class="easyui-combobox"
+					style="width: 70%; height: 30px; padding: 12px;"
+					data-options="valueField:'orderId',
+					editable:false,textField:'orderId',panelHeight:140,
+					url:'${pageContext.request.contextPath}/department/serviceInfo/orderCombobox.action',required:true" />
+			</div>	
+		
+			<div style="margin-bottom: 5px">
 			快递员名：<input id="courierIds" name="courierId" class="easyui-combobox"
 					style="width: 70%; height: 30px; padding: 12px;"
 					data-options="valueField:'courierId',
-					editable:false,textField:'courierName',panelHeight:140,
+					editable:false,textField:'courierName',panelHeight:100,
 					url:'${pageContext.request.contextPath}/department/serviceInfo/courierCombobox.action',required:true" />
 
 			</div>
