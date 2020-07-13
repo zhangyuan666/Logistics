@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.service.LogisticsInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.zy.entity.service.LogisticsInfo">
+		<id column="logistics_id" jdbcType="INTEGER" property="logisticsId" />
+		<result column="order_id" jdbcType="VARCHAR" property="orderId" />
+		<result column="logistics_info" jdbcType="VARCHAR"
+			property="logisticsInfo" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		logistics_id, order_id, logistics_info
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from logistics_info
+		where logistics_id = #{logisticsId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from logistics_info
+		where logistics_id = #{logisticsId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zy.entity.service.LogisticsInfo">
+		insert into logistics_info (logistics_id, order_id, logistics_info
+		)
+		values (#{logisticsId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR},
+		#{logisticsInfo,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zy.entity.service.LogisticsInfo">
+		insert into logistics_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="logisticsId != null">
+				logistics_id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="logisticsInfo != null">
+				logistics_info,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="logisticsId != null">
+				#{logisticsId,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="logisticsInfo != null">
+				#{logisticsInfo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zy.entity.service.LogisticsInfo">
+		update logistics_info
+		<set>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="logisticsInfo != null">
+				logistics_info = #{logisticsInfo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where logistics_id = #{logisticsId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zy.entity.service.LogisticsInfo">
+		update logistics_info
+		set order_id = #{orderId,jdbcType=VARCHAR},
+		logistics_info = #{logisticsInfo,jdbcType=VARCHAR}
+		where logistics_id = #{logisticsId,jdbcType=INTEGER}
+	</update>
+
+
+	<delete id="deleteByOrderId" parameterType="java.lang.String">
+		delete from logistics_info
+		where order_id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 张强新增 -->
+
+	<insert id="insertOne">
+		insert into logistics_info ( order_id, logistics_info )
+		values ( #{orderId,jdbcType=VARCHAR}, #{logisticsInfo,jdbcType=VARCHAR} )
+	</insert>
+
+
+	<!-- 罗海峰添加 -->
+
+	<!-- 对logistics_info查询快递员ID -->
+	<select id="ClogisticsIdCombobox" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from logistics_info
+	</select>
+
+	<!-- 快递员物流更新 -->
+	<insert id="ClogisticsInfoUpdate"
+		parameterType="com.zy.entity.service.LogisticsInfo">
+		insert into logistics_info (logistics_id, order_id, logistics_info
+		)
+		values (#{logisticsId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR},
+		#{logisticsInfo,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 对logistics_info查询配送员ID -->
+	<select id="DlogisticsIdCombobox" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from logistics_info
+	</select>
+
+
+	<!-- 配送员物流更新 -->
+	<insert id="DlogisticsInfoUpdate"
+		parameterType="com.zy.entity.service.LogisticsInfo">
+		insert into logistics_info (logistics_id, order_id, logistics_info
+		)
+		values (#{logisticsId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR},
+		#{logisticsInfo,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	
+  	<!--   	曾晓明写仓库管理查询和物流更新用的Begin      -->
+    <!-- 对logistics_info查询配送员ID -->
+    <select id="logisticsIdCombobox" resultMap="BaseResultMap">
+	select
+	<include refid="Base_Column_List" />
+	from logistics_info
+  </select>
+  <!-- 物流更新  -->
+  <insert id="logisticsInfoUpdate" parameterType="com.zy.entity.service.LogisticsInfo">
+    insert into logistics_info (logistics_id, order_id, logistics_info
+      )
+    values (#{logisticsId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{logisticsInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!--   	曾晓明写仓库管理查询和物流更新用的End      -->
+</mapper>

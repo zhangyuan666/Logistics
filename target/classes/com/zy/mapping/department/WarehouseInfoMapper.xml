@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.department.WarehouseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zy.entity.department.WarehouseInfo">
+    <id column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+    <result column="warehouse_name" jdbcType="VARCHAR" property="warehouseName" />
+    <result column="warehouse_address" jdbcType="VARCHAR" property="warehouseAddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    warehouse_id, warehouse_name, warehouse_address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse_info
+    where warehouse_id = #{warehouseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from warehouse_info
+    where warehouse_id = #{warehouseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.entity.department.WarehouseInfo">
+    insert into warehouse_info (warehouse_id, warehouse_name, warehouse_address
+      )
+    values (#{warehouseId,jdbcType=INTEGER}, #{warehouseName,jdbcType=VARCHAR}, #{warehouseAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.entity.department.WarehouseInfo">
+    insert into warehouse_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehouseId != null">
+        warehouse_id,
+      </if>
+      <if test="warehouseName != null">
+        warehouse_name,
+      </if>
+      <if test="warehouseAddress != null">
+        warehouse_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehouseId != null">
+        #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseName != null">
+        #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseAddress != null">
+        #{warehouseAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.entity.department.WarehouseInfo">
+    update warehouse_info
+    <set>
+      <if test="warehouseName != null">
+        warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseAddress != null">
+        warehouse_address = #{warehouseAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where warehouse_id = #{warehouseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.entity.department.WarehouseInfo">
+    update warehouse_info
+    set warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      warehouse_address = #{warehouseAddress,jdbcType=VARCHAR}
+    where warehouse_id = #{warehouseId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 查询 -->
+  <sql id="where">
+	<where>
+		<if test="warehouseId != null and warehouseId !='' ">
+			and warehouse_id like concat('%',#{warehouseId},'%')
+		</if>
+		<if test="warehouseName != null and warehouseName !='' ">
+			and warehouse_name like concat('%',#{warehouseName},'%')
+		</if>
+		<if test="warehouseAddress != null and warehouseAddress !='' ">
+			and warehouse_address like concat('%',#{warehouseAddress},'%')
+		</if>
+	</where> 
+  </sql>
+  <!-- ORDER BY 语句用于根据指定的列对结果集进行排序ASC和DESC -->
+  <select id="selectRowsList" parameterType="com.zy.entity.department.WarehouseInfo" resultMap="BaseResultMap">
+    select * 
+    from warehouse_info
+    <include refid="where" /> 
+	limit #{page} , #{rows}
+  </select>
+  <!-- 查有分页的总数 -->
+  <select id="count" parameterType="com.zy.entity.department.WarehouseInfo" resultType="java.lang.Long">
+    select 
+    count(*)
+    from warehouse_info
+  </select>
+  <!-- 查地址重复 -->
+   <select id="selectByWarehouseAddress" parameterType="com.zy.entity.department.WarehouseInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse_info
+    where warehouse_address = #{warehouseAddress,jdbcType=VARCHAR}
+  </select>
+
+  <select id="warehouseAddressCombobox" resultMap="BaseResultMap">
+	select
+	<include refid="Base_Column_List" />
+	from warehouse_info
+  </select>
+  
+</mapper>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.personnel.DriverInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zy.entity.personnel.DriverInfo">
+    <id column="driver_id" jdbcType="INTEGER" property="driverId" />
+    <result column="driver_name" jdbcType="VARCHAR" property="driverName" />
+    <result column="driver_tel" jdbcType="VARCHAR" property="driverTel" />
+    <result column="driver_task" jdbcType="VARCHAR" property="driverTask" />
+    <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    driver_id, driver_name, driver_tel, driver_task, warehouse_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from driver_info
+    where driver_id = #{driverId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from driver_info
+    where driver_id = #{driverId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.entity.personnel.DriverInfo">
+    insert into driver_info (driver_id, driver_name, driver_tel, 
+      driver_task, warehouse_id)
+    values (#{driverId,jdbcType=INTEGER}, #{driverName,jdbcType=VARCHAR}, #{driverTel,jdbcType=VARCHAR}, 
+      #{driverTask,jdbcType=VARCHAR}, #{warehouseId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.entity.personnel.DriverInfo">
+    insert into driver_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="driverId != null">
+        driver_id,
+      </if>
+      <if test="driverName != null">
+        driver_name,
+      </if>
+      <if test="driverTel != null">
+        driver_tel,
+      </if>
+      <if test="driverTask != null">
+        driver_task,
+      </if>
+      <if test="warehouseId != null">
+        warehouse_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="driverId != null">
+        #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="driverName != null">
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="driverTel != null">
+        #{driverTel,jdbcType=VARCHAR},
+      </if>
+      <if test="driverTask != null">
+        #{driverTask,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseId != null">
+        #{warehouseId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.entity.personnel.DriverInfo">
+    update driver_info
+    <set>
+      <if test="driverName != null">
+        driver_name = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="driverTel != null">
+        driver_tel = #{driverTel,jdbcType=VARCHAR},
+      </if>
+      <if test="driverTask != null">
+        driver_task = #{driverTask,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseId != null">
+        warehouse_id = #{warehouseId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where driver_id = #{driverId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.entity.personnel.DriverInfo">
+    update driver_info
+    set driver_name = #{driverName,jdbcType=VARCHAR},
+      driver_tel = #{driverTel,jdbcType=VARCHAR},
+      driver_task = #{driverTask,jdbcType=VARCHAR},
+      warehouse_id = #{warehouseId,jdbcType=INTEGER}
+    where driver_id = #{driverId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+   <select id="selectDriveList"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from driver_info
+  </select>
+  
+  
+  <!-- 罗海峰添加 -->
+  	<resultMap id="DriverInfoMap" type="com.zy.entity.personnel.DriverInfo">
+		<id column="driver_id" jdbcType="INTEGER" property="driverId" />
+		<result column="driver_name" jdbcType="VARCHAR" property="driverName" />
+		<result column="driver_tel" jdbcType="VARCHAR" property="driverTel" />
+		<result column="driver_task" jdbcType="VARCHAR"
+			property="driverTask" />
+		<result column="warehouse_id" jdbcType="INTEGER"
+			property="warehouseId" />
+		<collection property="warehouseInfos"
+			ofType="com.zy.entity.department.WarehouseInfo" javaType="java.util.ArrayList">
+			<id column="w_warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+			<result column="w_warehouse_name" jdbcType="VARCHAR" property="warehouseName" />
+			<result column="w_warehouse_address" jdbcType="VARCHAR" property="warehouseAddress" />
+		</collection>
+	</resultMap>
+
+	<select id="selectRowsList"
+		parameterType="com.zy.entity.personnel.DriverInfo" resultMap="DriverInfoMap">
+		SELECT
+		d.*, 
+		w.warehouse_id AS w_warehouseId,
+		w.warehouse_name AS w_warehouseName,
+		w.warehouse_address AS w_warehouseAddress		
+		FROM
+		driver_info d
+		LEFT JOIN warehouse_info w ON d.warehouse_id =
+		w.warehouse_id
+		where driver_id in (
+		select driver_id from (select driver_id from driver_info 
+		<include refid="where" />
+		order by ${sort}
+		${order}
+		limit
+		#{page},#{rows}) as
+		temp )
+	</select>
+	
+  		<sql id="where">
+		<where>
+			<if test="driverId != null and driverId !='' ">
+				and driver_id like concat('%',#{driverId},'%')
+			</if>
+			<if test="driverName != null and driverName !='' ">
+				and driver_name like concat('%',#{driverName},'%')
+			</if>
+			<if test="driverTel != null and driverTel !='' ">
+				and driver_tel like concat('%',#{driverTel},'%')
+			</if>
+			<if test="driverTask != null and driverTask !='' ">
+				and driver_task like concat('%',#{driverTask},'%')
+			</if>
+			<if test="warehouseId != null and warehouseId !='' ">
+				and warehouse_id like concat('%',#{warehouseId},'%')
+			</if>
+		</where>
+	</sql>
+  
+  
+  	<select id="count" parameterType="com.zy.entity.personnel.DriverInfo"
+		resultType="java.lang.Long">
+		select
+		count(*)
+		from driver_info
+	</select>
+	
+	<select id="driverInfoCombobox" resultMap="BaseResultMap">
+	select
+		<include refid="Base_Column_List" />
+		from driver_info
+	</select>
+	
+	<!--   	曾晓明写仓库管理查询和更新配送员任务用的Begin      -->
+  <!-- 对driver_info查询配送员ID -->
+    <select id="driverIdCombobox" resultMap="BaseResultMap">
+	select
+	<include refid="Base_Column_List" />
+	from driver_info
+  </select>
+  <!-- 更新配送员任务 -->
+  <update id="driverTask" parameterType="com.zy.entity.personnel.DriverInfo">
+    update driver_info
+    set driver_task = #{driverTask,jdbcType=VARCHAR}
+    where driver_id = #{driverId,jdbcType=INTEGER}
+  </update>
+    <!--   	曾晓明写仓库管理查询和更新配送员任务用的Begin      -->
+</mapper>

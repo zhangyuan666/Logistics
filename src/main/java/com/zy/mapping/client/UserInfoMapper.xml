@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.client.UserInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.zy.entity.client.UserInfo">
+		<id column="user_info_id" jdbcType="INTEGER" property="userInfoId" />
+		<result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+		<result column="user_provinces" jdbcType="VARCHAR"
+			property="userProvinces" />
+		<result column="user_address" jdbcType="VARCHAR"
+			property="userAddress" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_info_id, user_tel, user_provinces, user_address, user_id, user_name
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_info
+		where user_info_id = #{userInfoId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from user_info
+		where user_info_id = #{userInfoId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zy.entity.client.UserInfo">
+		insert into user_info (user_info_id, user_tel, user_provinces,
+		user_address, user_id, user_name
+		)
+		values (#{userInfoId,jdbcType=INTEGER}, #{userTel,jdbcType=VARCHAR},
+		#{userProvinces,jdbcType=VARCHAR},
+		#{userAddress,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zy.entity.client.UserInfo" useGeneratedKeys="true" keyProperty="userInfoId">
+		insert into user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userInfoId != null">
+				user_info_id,
+			</if>
+			<if test="userTel != null">
+				user_tel,
+			</if>
+			<if test="userProvinces != null">
+				user_provinces,
+			</if>
+			<if test="userAddress != null">
+				user_address,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userInfoId != null">
+				#{userInfoId,jdbcType=INTEGER},
+			</if>
+			<if test="userTel != null">
+				#{userTel,jdbcType=VARCHAR},
+			</if>
+			<if test="userProvinces != null">
+				#{userProvinces,jdbcType=VARCHAR},
+			</if>
+			<if test="userAddress != null">
+				#{userAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zy.entity.client.UserInfo">
+		update user_info
+		<set>
+			<if test="userTel != null">
+				user_tel = #{userTel,jdbcType=VARCHAR},
+			</if>
+			<if test="userProvinces != null">
+				user_provinces = #{userProvinces,jdbcType=VARCHAR},
+			</if>
+			<if test="userAddress != null">
+				user_address = #{userAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_info_id = #{userInfoId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zy.entity.client.UserInfo">
+		update user_info
+		set user_tel = #{userTel,jdbcType=VARCHAR},
+		user_provinces = #{userProvinces,jdbcType=VARCHAR},
+		user_address = #{userAddress,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=VARCHAR},
+		user_name = #{userName,jdbcType=VARCHAR}
+		where user_info_id = #{userInfoId,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByUserName" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select
+		user_info_id
+		from user_info
+		where user_name = #{userName}
+	</select>
+	<select id="selectByUserid" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from user_info
+		where user_id = #{string}
+	</select>
+
+</mapper>

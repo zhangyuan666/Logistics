@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.personnel.CourierInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zy.entity.personnel.CourierInfo">
+    <id column="courier_id" jdbcType="INTEGER" property="courierId" />
+    <result column="courier_name" jdbcType="VARCHAR" property="courierName" />
+    <result column="courier_tel" jdbcType="VARCHAR" property="courierTel" />
+    <result column="courier_task" jdbcType="VARCHAR" property="courierTask" />
+    <result column="service_id" jdbcType="INTEGER" property="serviceId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    courier_id, courier_name, courier_tel, courier_task, service_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from courier_info
+    where courier_id = #{courierId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from courier_info
+    where courier_id = #{courierId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.entity.personnel.CourierInfo">
+    insert into courier_info (courier_id, courier_name, courier_tel, 
+      courier_task, service_id)
+    values (#{courierId,jdbcType=INTEGER}, #{courierName,jdbcType=VARCHAR}, #{courierTel,jdbcType=VARCHAR}, 
+      #{courierTask,jdbcType=VARCHAR}, #{serviceId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.entity.personnel.CourierInfo">
+    insert into courier_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courierId != null">
+        courier_id,
+      </if>
+      <if test="courierName != null">
+        courier_name,
+      </if>
+      <if test="courierTel != null">
+        courier_tel,
+      </if>
+      <if test="courierTask != null">
+        courier_task,
+      </if>
+      <if test="serviceId != null">
+        service_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courierId != null">
+        #{courierId,jdbcType=INTEGER},
+      </if>
+      <if test="courierName != null">
+        #{courierName,jdbcType=VARCHAR},
+      </if>
+      <if test="courierTel != null">
+        #{courierTel,jdbcType=VARCHAR},
+      </if>
+      <if test="courierTask != null">
+        #{courierTask,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.entity.personnel.CourierInfo">
+    update courier_info
+    <set>
+      <if test="courierName != null">
+        courier_name = #{courierName,jdbcType=VARCHAR},
+      </if>
+      <if test="courierTel != null">
+        courier_tel = #{courierTel,jdbcType=VARCHAR},
+      </if>
+      <if test="courierTask != null">
+        courier_task = #{courierTask,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null">
+        service_id = #{serviceId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where courier_id = #{courierId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.entity.personnel.CourierInfo">
+    update courier_info
+    set courier_name = #{courierName,jdbcType=VARCHAR},
+      courier_tel = #{courierTel,jdbcType=VARCHAR},
+      courier_task = #{courierTask,jdbcType=VARCHAR},
+      service_id = #{serviceId,jdbcType=INTEGER}
+    where courier_id = #{courierId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  
+  <select id="selectCourList"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from courier_info
+  </select>
+  
+  
+    <!--张强添加  -->
+  
+  <select id="courierCombobox" resultMap="BaseResultMap">
+		select
+	<include refid="Base_Column_List" />
+		from courier_info
+	</select>
+	
+	
+	 <!-- 罗海峰添加 -->
+	<resultMap id="CourierInfoMap" type="com.zy.entity.personnel.CourierInfo">
+		<id column="courier_id" jdbcType="INTEGER" property="courierId" />
+		<result column="courier_name" jdbcType="VARCHAR" property="courierName" />
+		<result column="courier_tel" jdbcType="VARCHAR" property="courierTel" />
+		<result column="courier_task" jdbcType="VARCHAR"
+			property="courierTask" />
+		<result column="service_id" jdbcType="INTEGER"
+			property="serviceId" />
+		<collection property="serviceInfos"
+			ofType="com.zy.entity.department.ServiceInfo" javaType="java.util.ArrayList">
+			<id column="s_service_id" jdbcType="INTEGER" property="serviceId" />
+			<result column="s_service_name" jdbcType="VARCHAR" property="serviceName" />
+			<result column="s_service_address" jdbcType="VARCHAR" property="serviceAddress" />
+		</collection>
+	</resultMap>
+
+	<select id="selectRowsList"
+		parameterType="com.zy.entity.personnel.CourierInfo" resultMap="CourierInfoMap">
+		SELECT
+		c.*, 
+		s.service_id AS s_serviceId,
+		s.service_name AS s_serviceName,
+		s.service_address AS s_serviceAddress		
+		FROM
+		courier_info c
+		LEFT JOIN service_info s ON c.service_id =
+		s.service_id
+		where courier_id in (
+		select courier_id from (select courier_id from courier_info 
+		<include refid="where" />
+		order by ${sort}
+		${order}
+		limit
+		#{page},#{rows}) as
+		temp )
+	</select>
+	
+	<sql id="where">
+		<where>
+			<if test="courierId != null and courierId !='' ">
+				and courier_id like concat('%',#{courierId},'%')
+			</if>
+			<if test="courierName != null and courierName !='' ">
+				and courier_name like concat('%',#{courierName},'%')
+			</if>
+			<if test="courierTel != null and courierTel !='' ">
+				and courier_tel like concat('%',#{courierTel},'%')
+			</if>
+			<if test="courierTask != null and courierTask !='' ">
+				and courier_task like concat('%',#{courierTask},'%')
+			</if>
+			<if test="serviceId != null and serviceId !='' ">
+				and service_id like concat('%',#{serviceId},'%')
+			</if>
+		</where>
+	
+	</sql>
+	
+	<select id="count" parameterType="com.zy.entity.personnel.CourierInfo"
+		resultType="java.lang.Long">
+		select
+		count(*)
+		from courier_info
+	</select>
+	
+	<select id="courierInfoCombobox" resultMap="BaseResultMap">
+	select
+		<include refid="Base_Column_List" />
+		from courier_info
+	</select>
+	
+	
+	<!--   	曾晓明写仓库管理查询和更新快递员任务用的Begin      -->
+    <!-- 对courier_info查询快递员ID -->
+    <select id="courierIdCombobox" resultMap="BaseResultMap">
+	select
+	<include refid="Base_Column_List" />
+	from courier_info
+  </select>
+  <!-- 更新快递员任务 -->
+    <update id="courierTask" parameterType="com.zy.entity.personnel.CourierInfo">
+    update courier_info
+    set courier_task = #{courierTask,jdbcType=VARCHAR}
+    where courier_id = #{courierId,jdbcType=INTEGER}
+  </update>
+  <!--   	曾晓明写仓库管理查询和更新快递员任务用的End      -->
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.system.User_RoleMapper">
+  <resultMap id="BaseResultMap" type="com.zy.entity.system.User_Role">
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zy.entity.system.User_Role">
+    insert into system_user_role (userid, roleid)
+    values (#{userid,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.entity.system.User_Role">
+    insert into system_user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <delete id="deleteByUserId" parameterType="java.lang.String">
+    delete from system_user_role
+    where userid = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="setValues" parameterType="java.lang.String"  resultMap="BaseResultMap">
+  	select * from system_user_role where userid = #{id}
+  </select>
+</mapper>

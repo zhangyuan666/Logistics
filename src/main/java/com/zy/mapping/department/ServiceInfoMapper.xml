@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.department.ServiceInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.zy.entity.department.ServiceInfo">
+		<id column="service_id" jdbcType="INTEGER" property="serviceId" />
+		<result column="service_name" jdbcType="VARCHAR"
+			property="serviceName" />
+		<result column="service_address" jdbcType="VARCHAR"
+			property="serviceAddress" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		service_id, service_name, service_address
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from service_info
+		where service_id = #{serviceId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from service_info
+		where service_id =
+		#{serviceId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zy.entity.department.ServiceInfo">
+		insert into service_info (service_id, service_name,
+		service_address
+		)
+		values (#{serviceId,jdbcType=INTEGER},
+		#{serviceName,jdbcType=VARCHAR},
+		#{serviceAddress,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zy.entity.department.ServiceInfo">
+		insert into service_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="serviceId != null">
+				service_id,
+			</if>
+			<if test="serviceName != null">
+				service_name,
+			</if>
+			<if test="serviceAddress != null">
+				service_address,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="serviceId != null">
+				#{serviceId,jdbcType=INTEGER},
+			</if>
+			<if test="serviceName != null">
+				#{serviceName,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceAddress != null">
+				#{serviceAddress,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zy.entity.department.ServiceInfo">
+		update service_info
+		<set>
+			<if test="serviceName != null">
+				service_name = #{serviceName,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceAddress != null">
+				service_address = #{serviceAddress,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where service_id = #{serviceId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zy.entity.department.ServiceInfo">
+		update service_info
+		set service_name =
+		#{serviceName,jdbcType=VARCHAR},
+		service_address =
+		#{serviceAddress,jdbcType=VARCHAR}
+		where service_id =
+		#{serviceId,jdbcType=INTEGER}
+	</update>
+
+
+
+	<resultMap id="sendResultMap"
+		type="com.zy.entity.department.ServiceInfo">
+		<result column="service_name" jdbcType="VARCHAR"
+			property="serviceName" />
+		<result column="money" jdbcType="VARCHAR" property="money" />
+	</resultMap>
+
+	<select id="selectMoney" resultMap="sendResultMap">
+		SELECT SUM(send_freight) as
+		money,service_name
+		FROM
+		service_info LEFT JOIN send on send.service_id =
+		service_info.service_id
+		GROUP BY send.service_id
+	</select>
+
+
+	<!--张强 -->
+	<sql id="where">
+		<where>
+			<if test="serviceId != null and serviceId !='' ">
+				and service_id like concat('%',#{serviceId},'%')
+			</if>
+			<if test="serviceName != null and serviceName !='' ">
+				and service_name like concat('%',#{serviceName},'%')
+			</if>
+			<if test="serviceAddress != null and serviceAddress !='' ">
+				and service_address like
+				concat('%',#{serviceAddress},'%')
+
+			</if>
+		</where>
+	</sql>
+	<select id="selectRowsList"
+		parameterType="com.zy.entity.department.ServiceInfo"
+		resultMap="BaseResultMap">
+		select
+		*
+		from service_info
+		<include refid="where"></include>
+		<!-- order by ${sort} ${order} -->
+		limit #{page}, #{rows}
+
+	</select>
+	<select id="count"
+		parameterType="com.zy.entity.department.ServiceInfo"
+		resultType="java.lang.Long">
+		select
+		count(*)
+		from service_info
+		<include refid="where"></include>
+	</select>
+
+	<!--删除 -->
+	<delete id="deleteByServiceInfoId"
+		parameterType="java.lang.Integer">
+		delete from service_info
+		where service_id =
+		#{service_id,jdbcType=INTEGER}
+	</delete>
+
+	<select id="selectByServiceName"
+		parameterType="java.lang.String" resultType="java.lang.Integer">
+		select
+		service_id
+		from service_info
+		where service_name = #{serviceName}
+	</select>
+</mapper>

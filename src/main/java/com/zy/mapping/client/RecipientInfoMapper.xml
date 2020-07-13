@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.client.RecipientInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.zy.entity.client.RecipientInfo">
+		<id column="recipient_id" jdbcType="INTEGER" property="recipientId" />
+		<result column="recipient_tel" jdbcType="VARCHAR"
+			property="recipientTel" />
+		<result column="recipient_provinces" jdbcType="VARCHAR"
+			property="recipientProvinces" />
+		<result column="recipient_address" jdbcType="VARCHAR"
+			property="recipientAddress" />
+		<result column="recipient_name" jdbcType="VARCHAR"
+			property="recipientName" />
+		<result column="user_info_id" jdbcType="INTEGER"
+			property="userInfoId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		recipient_id, recipient_tel, recipient_provinces, recipient_address,
+		recipient_name,
+		user_info_id
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from recipient_info
+		where recipient_id = #{recipientId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from recipient_info
+		where recipient_id = #{recipientId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zy.entity.client.RecipientInfo">
+		insert into recipient_info (recipient_id, recipient_tel,
+		recipient_provinces,
+		recipient_address, recipient_name, user_info_id
+		)
+		values (#{recipientId,jdbcType=INTEGER}, #{recipientTel,jdbcType=VARCHAR},
+		#{recipientProvinces,jdbcType=VARCHAR},
+		#{recipientAddress,jdbcType=VARCHAR},
+		#{recipientName,jdbcType=VARCHAR}, #{userInfoId,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zy.entity.client.RecipientInfo">
+		insert into recipient_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="recipientId != null">
+				recipient_id,
+			</if>
+			<if test="recipientTel != null">
+				recipient_tel,
+			</if>
+			<if test="recipientProvinces != null">
+				recipient_provinces,
+			</if>
+			<if test="recipientAddress != null">
+				recipient_address,
+			</if>
+			<if test="recipientName != null">
+				recipient_name,
+			</if>
+			<if test="userInfoId != null">
+				user_info_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="recipientId != null">
+				#{recipientId,jdbcType=INTEGER},
+			</if>
+			<if test="recipientTel != null">
+				#{recipientTel,jdbcType=VARCHAR},
+			</if>
+			<if test="recipientProvinces != null">
+				#{recipientProvinces,jdbcType=VARCHAR},
+			</if>
+			<if test="recipientAddress != null">
+				#{recipientAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="recipientName != null">
+				#{recipientName,jdbcType=VARCHAR},
+			</if>
+			<if test="userInfoId != null">
+				#{userInfoId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zy.entity.client.RecipientInfo">
+		update recipient_info
+		<set>
+			<if test="recipientTel != null">
+				recipient_tel = #{recipientTel,jdbcType=VARCHAR},
+			</if>
+			<if test="recipientProvinces != null">
+				recipient_provinces = #{recipientProvinces,jdbcType=VARCHAR},
+			</if>
+			<if test="recipientAddress != null">
+				recipient_address = #{recipientAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="recipientName != null">
+				recipient_name = #{recipientName,jdbcType=VARCHAR},
+			</if>
+			<if test="userInfoId != null">
+				user_info_id = #{userInfoId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where recipient_id = #{recipientId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zy.entity.client.RecipientInfo">
+		update recipient_info
+		set recipient_tel = #{recipientTel,jdbcType=VARCHAR},
+		recipient_provinces = #{recipientProvinces,jdbcType=VARCHAR},
+		recipient_address = #{recipientAddress,jdbcType=VARCHAR},
+		recipient_name = #{recipientName,jdbcType=VARCHAR},
+		user_info_id = #{userInfoId,jdbcType=INTEGER}
+		where recipient_id = #{recipientId,jdbcType=INTEGER}
+	</update>
+
+
+
+	<select id="selectByRecipientName"
+		parameterType="java.lang.String" resultType="java.lang.Integer">
+		select
+		recipient_id
+		from recipient_info
+		where recipient_name = #{recipientName}
+	</select>
+	<select id="selectAllRecipientInfo" resultMap="BaseResultMap">
+		select
+		recipient_info.*
+		from recipient_info left join user_info on user_info.user_info_id
+		=recipient_info.user_info_id
+	</select>
+
+</mapper>

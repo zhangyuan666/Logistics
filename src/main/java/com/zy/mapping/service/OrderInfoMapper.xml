@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.service.OrderInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.zy.entity.service.OrderInfo">
+		<id column="order_id" jdbcType="VARCHAR" property="orderId" />
+		<result column="order_creattime" jdbcType="TIMESTAMP"
+			property="orderCreattime" />
+		<result column="cargo_id" jdbcType="INTEGER" property="cargoId" />
+		<result column="courier_id" jdbcType="INTEGER"
+			property="courierId" />
+		<result column="driver_id" jdbcType="INTEGER"
+			property="driverId" />
+		<result column="user_info_id" jdbcType="INTEGER"
+			property="userInfoId" />
+		<result column="order_state" jdbcType="INTEGER"
+			property="orderState" />
+		<result column="recipient_id" jdbcType="INTEGER"
+			property="recipientId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		order_id, order_creattime, cargo_id, courier_id, driver_id, user_info_id,
+		order_state,
+		recipient_id
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_info
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from order_info
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zy.entity.service.OrderInfo">
+		insert into order_info (order_id, order_creattime, cargo_id,
+		courier_id, driver_id, user_info_id,
+		order_state, recipient_id)
+		values (#{orderId,jdbcType=VARCHAR}, #{orderCreattime,jdbcType=TIMESTAMP},
+		#{cargoId,jdbcType=INTEGER},
+		#{courierId,jdbcType=INTEGER}, #{driverId,jdbcType=INTEGER}, #{userInfoId,jdbcType=INTEGER},
+		#{orderState,jdbcType=INTEGER}, #{recipientId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zy.entity.service.OrderInfo">
+		insert into order_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="orderCreattime != null">
+				order_creattime,
+			</if>
+			<if test="cargoId != null">
+				cargo_id,
+			</if>
+			<if test="courierId != null">
+				courier_id,
+			</if>
+			<if test="driverId != null">
+				driver_id,
+			</if>
+			<if test="userInfoId != null">
+				user_info_id,
+			</if>
+			<if test="orderState != null">
+				order_state,
+			</if>
+			<if test="recipientId != null">
+				recipient_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCreattime != null">
+				#{orderCreattime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cargoId != null">
+				#{cargoId,jdbcType=INTEGER},
+			</if>
+			<if test="courierId != null">
+				#{courierId,jdbcType=INTEGER},
+			</if>
+			<if test="driverId != null">
+				#{driverId,jdbcType=INTEGER},
+			</if>
+			<if test="userInfoId != null">
+				#{userInfoId,jdbcType=INTEGER},
+			</if>
+			<if test="orderState != null">
+				#{orderState,jdbcType=INTEGER},
+			</if>
+			<if test="recipientId != null">
+				#{recipientId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zy.entity.service.OrderInfo">
+		update order_info
+		<set>
+			<if test="orderCreattime != null">
+				order_creattime = #{orderCreattime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cargoId != null">
+				cargo_id = #{cargoId,jdbcType=INTEGER},
+			</if>
+			<if test="courierId != null">
+				courier_id = #{courierId,jdbcType=INTEGER},
+			</if>
+			<if test="driverId != null">
+				driver_id = #{driverId,jdbcType=INTEGER},
+			</if>
+			<if test="userInfoId != null">
+				user_info_id = #{userInfoId,jdbcType=INTEGER},
+			</if>
+			<if test="orderState != null">
+				order_state = #{orderState,jdbcType=INTEGER},
+			</if>
+			<if test="recipientId != null">
+				recipient_id = #{recipientId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zy.entity.service.OrderInfo">
+		update order_info
+		set order_creattime = #{orderCreattime,jdbcType=TIMESTAMP},
+		cargo_id = #{cargoId,jdbcType=INTEGER},
+		courier_id = #{courierId,jdbcType=INTEGER},
+		driver_id = #{driverId,jdbcType=INTEGER},
+		user_info_id = #{userInfoId,jdbcType=INTEGER},
+		order_state = #{orderState,jdbcType=INTEGER},
+		recipient_id = #{recipientId,jdbcType=INTEGER}
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</update>
+
+
+	<select id="count"
+		parameterType="com.zy.entity.service.OrderInfo"
+		resultType="java.lang.Long">
+		select
+		count(*)
+		from order_info
+	</select>
+
+	<resultMap id="cargo" type="com.zy.entity.service.CargoInfo">
+		<result column="cname" jdbcType="VARCHAR" property="cargoName" />
+	</resultMap>
+
+
+	<resultMap id="courier"
+		type="com.zy.entity.personnel.CourierInfo">
+		<result column="coname" jdbcType="VARCHAR"
+			property="courierName" />
+	</resultMap>
+
+	<resultMap id="driver"
+		type="com.zy.entity.personnel.DriverInfo">
+		<result column="dname" jdbcType="VARCHAR" property="driverName" />
+	</resultMap>
+
+	<resultMap id="logistics"
+		type="com.zy.entity.service.LogisticsInfo">
+		<result column="loginfo" jdbcType="VARCHAR"
+			property="logisticsInfo" />
+	</resultMap>
+
+	<resultMap id="user_info"
+		type="com.zy.entity.client.UserInfo">
+		<result column="uname" jdbcType="VARCHAR" property="userName" />
+	</resultMap>
+
+	<resultMap id="recipient"
+		type="com.zy.entity.client.RecipientInfo">
+		<result column="rname" jdbcType="VARCHAR"
+			property="recipientName" />
+		<result column="rtel" jdbcType="VARCHAR"
+			property="recipientTel" />
+	</resultMap>
+
+
+	<resultMap id="orderResultMap"
+		type="com.zy.entity.service.OrderInfo">
+		<id column="oid" jdbcType="VARCHAR" property="orderId" />
+		<result column="otime" jdbcType="TIMESTAMP"
+			property="orderCreattime" />
+		<result column="ostate" jdbcType="INTEGER"
+			property="orderState" />
+		<association property="cargoInfo"
+			javaType="com.zy.entity.service.OrderInfo" resultMap="cargo"></association>
+		<association property="courierInfo"
+			javaType="com.zy.entity.service.OrderInfo" resultMap="courier"></association>
+		<association property="driverInfo"
+			javaType="com.zy.entity.service.OrderInfo" resultMap="driver"></association>
+		<association property="userInfo"
+			javaType="com.zy.entity.service.OrderInfo" resultMap="user_info"></association>
+		<association property="recInfo"
+			javaType="com.zy.entity.service.OrderInfo" resultMap="recipient"></association>
+		<collection property="logList"
+			ofType="com.zy.entity.service.LogisticsInfo" resultMap="logistics"></collection>
+	</resultMap>
+
+	<sql id="where">
+		<where>
+			<if test="orderId != null and orderId !='' ">
+				and order_id like concat('%',#{orderId},'%')
+			</if>
+			<if test="orderState != null">
+				and order_state = ${orderState}
+			</if>
+		</where>
+	</sql>
+
+
+	<select id="selectRowsList"
+		parameterType="com.zy.entity.service.OrderInfo"
+		resultMap="orderResultMap">
+		SELECT
+		o.order_id as oid,
+		o.order_creattime as otime,
+		o.order_state as
+		ostate,
+		c.cargo_name as cname,
+		co.courier_name as coname,
+		d.driver_name
+		as dname,
+		l.logistics_info as loginfo,
+		u.user_name as uname,
+		r.recipient_name as rname,
+		r.recipient_tel as rtel
+		FROM
+		order_info o
+		LEFT
+		JOIN cargo_info c ON o.cargo_id = c.cargo_id
+		LEFT JOIN
+		courier_info co
+		ON o.courier_id = co.courier_id
+		LEFT JOIN driver_info d
+		ON o.driver_id =
+		d.driver_id
+		LEFT JOIN logistics_info l ON o.order_id =
+		l.order_id
+		LEFT
+		JOIN user_info u ON u.user_info_id = o.user_info_id
+		LEFT JOIN
+		recipient_info r ON o.recipient_id = r.recipient_id
+		where o.order_id in
+		(select order_id from (select order_id from
+		order_info
+		<include refid="where" />
+		order by ${sort} ${order} limit #{page} , #{rows}) as temp)
+	</select>
+
+
+	<!-- 张强新增 -->
+	<select id="orderCombobox" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_info
+	</select>
+
+	<update id="updateOrderStateByKey"
+		parameterType="com.zy.entity.service.OrderInfo">
+		update order_info
+		set order_state = #{orderState,jdbcType=INTEGER}
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</update>
+
+
+	<resultMap id="acargo" type="com.zy.entity.service.CargoInfo">
+		<result column="cname" jdbcType="VARCHAR" property="cargoName" />
+	</resultMap>
+
+
+	<resultMap id="acourier"
+		type="com.zy.entity.personnel.CourierInfo">
+		<result column="coname" jdbcType="VARCHAR"
+			property="courierName" />
+		<result column="cotel" jdbcType="VARCHAR" property="courierTel" />
+	</resultMap>
+
+	<resultMap id="alogistics"
+		type="com.zy.entity.service.LogisticsInfo">
+		<result column="loginfo" jdbcType="VARCHAR"
+			property="logisticsInfo" />
+	</resultMap>
+
+
+	<resultMap id="aorderResultMap"
+		type="com.zy.entity.service.OrderInfo">
+		<id column="oid" jdbcType="VARCHAR" property="orderId" />
+		<result column="otime" jdbcType="TIMESTAMP"
+			property="orderCreattime" />
+		<result column="ostate" jdbcType="INTEGER"
+			property="orderState" />
+		<association property="cargoInfo"
+			javaType="com.zy.entity.service.OrderInfo" resultMap="acargo"></association>
+		<association property="courierInfo"
+			javaType="com.zy.entity.service.OrderInfo" resultMap="acourier"></association>
+		<collection property="logList"
+			ofType="com.zy.entity.service.LogisticsInfo" resultMap="alogistics"></collection>
+	</resultMap>
+
+
+
+	<select id="selectAllDd" parameterType="java.lang.Integer"
+		resultMap="aorderResultMap">
+		SELECT
+		o.order_id AS oid,
+		o.order_creattime AS otime,
+		o.order_state AS ostate,
+		c.cargo_name AS cname,
+		co.courier_name AS coname,
+		co.courier_tel AS cotel,
+		l.logistics_info AS loginfo
+		FROM
+		order_info o
+		LEFT JOIN cargo_info c ON o.cargo_id = c.cargo_id
+		LEFT JOIN courier_info co ON o.courier_id = co.courier_id
+		LEFT JOIN logistics_info l ON o.order_id = l.order_id
+		WHERE
+		o.user_info_id=#{id}
+	</select>
+
+</mapper>

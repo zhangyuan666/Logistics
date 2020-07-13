@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.service.CargoInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zy.entity.service.CargoInfo">
+    <id column="cargo_id" jdbcType="INTEGER" property="cargoId" />
+    <result column="cargo_weight" jdbcType="INTEGER" property="cargoWeight" />
+    <result column="cargo_category" jdbcType="VARCHAR" property="cargoCategory" />
+    <result column="cargo_name" jdbcType="VARCHAR" property="cargoName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cargo_id, cargo_weight, cargo_category, cargo_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cargo_info
+    where cargo_id = #{cargoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cargo_info
+    where cargo_id = #{cargoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.entity.service.CargoInfo" >
+    insert into cargo_info (cargo_id, cargo_weight, cargo_category, 
+      cargo_name)
+    values (#{cargoId,jdbcType=INTEGER}, #{cargoWeight,jdbcType=INTEGER}, #{cargoCategory,jdbcType=VARCHAR}, 
+      #{cargoName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.entity.service.CargoInfo" useGeneratedKeys="true" keyProperty="cargoId"> 
+    insert into cargo_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cargoId != null">
+        cargo_id,
+      </if>
+      <if test="cargoWeight != null">
+        cargo_weight,
+      </if>
+      <if test="cargoCategory != null">
+        cargo_category,
+      </if>
+      <if test="cargoName != null">
+        cargo_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cargoId != null">
+        #{cargoId,jdbcType=INTEGER},
+      </if>
+      <if test="cargoWeight != null">
+        #{cargoWeight,jdbcType=INTEGER},
+      </if>
+      <if test="cargoCategory != null">
+        #{cargoCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null">
+        #{cargoName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.entity.service.CargoInfo">
+    update cargo_info
+    <set>
+      <if test="cargoWeight != null">
+        cargo_weight = #{cargoWeight,jdbcType=INTEGER},
+      </if>
+      <if test="cargoCategory != null">
+        cargo_category = #{cargoCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null">
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cargo_id = #{cargoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.entity.service.CargoInfo">
+    update cargo_info
+    set cargo_weight = #{cargoWeight,jdbcType=INTEGER},
+      cargo_category = #{cargoCategory,jdbcType=VARCHAR},
+      cargo_name = #{cargoName,jdbcType=VARCHAR}
+    where cargo_id = #{cargoId,jdbcType=INTEGER}
+  </update>
+</mapper>
