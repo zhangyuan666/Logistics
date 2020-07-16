@@ -16,80 +16,145 @@ import com.zy.entity.system.Role;
 import com.zy.service.system.RoleService;
 import com.zy.utils.MsgUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("system/role")
 public class RoleController {
 
 	@Resource
 	private RoleService service;
-	
+
+	/**
+	 * 
+	 * @MethodName: role
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:14:31
+	 */
 	@RequestMapping("role")
 	public String role() {
 		return "system/role";
 	}
-	
+
+	/**
+	 * 
+	 * @MethodName: roleAdd
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:14:35
+	 */
 	@RequestMapping("roleAdd")
 	public String roleAdd() {
 		return "system/roleAdd";
 	}
-	
-	
-	//添加用户
-		@ResponseBody
-		@RequestMapping("addRole")
-		public String addRole(Role role, HttpSession session) {
-			MsgUtil msg = new MsgUtil();
-			try {
-				int res = service.addRole(role, session);
-				msg.setSuccess(true);
-				msg.setMessage("成功新增" + res + "条数据！");
-			} catch (Exception e) {
-				msg.setSuccess(false);
-				msg.setMessage(e.getMessage());
-			}
-			return JSON.toJSONString(msg);
+
+	/**
+	 * 
+	 * @MethodName: addRole
+	 * @param role
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:14:37
+	 */
+	// 添加用户
+	@ResponseBody
+	@RequestMapping("addRole")
+	public String addRole(Role role, HttpSession session) {
+		MsgUtil msg = new MsgUtil();
+		try {
+			int res = service.addRole(role, session);
+			msg.setSuccess(true);
+			msg.setMessage("成功新增" + res + "条数据！");
+		} catch (Exception e) {
+			msg.setSuccess(false);
+			msg.setMessage(e.getMessage());
 		}
-	
-		@RequestMapping("roleEdit")
-		public ModelAndView roleEdit(Integer id) {
-			ModelAndView mav = new ModelAndView();
-			Role role = service.findById(id);
-			mav.setViewName("system/roleEdit");
-			mav.addObject("role", role);
-			return mav;
+		return JSON.toJSONString(msg);
+	}
+
+	/**
+	 * 
+	 * @MethodName: roleEdit
+	 * @param id
+	 * @return ModelAndView
+	 * @Description: TODO
+	 * @date 2020-07-16 07:14:43
+	 */
+	@RequestMapping("roleEdit")
+	public ModelAndView roleEdit(Integer id) {
+		ModelAndView mav = new ModelAndView();
+		Role role = service.findById(id);
+		mav.setViewName("system/roleEdit");
+		mav.addObject("role", role);
+		return mav;
+	}
+
+	/**
+	 * 
+	 * @MethodName: editRole
+	 * @param role
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:14:46
+	 */
+	@ResponseBody
+	@RequestMapping("editRole")
+	public String editRole(Role role, HttpSession session) {
+		MsgUtil msg = new MsgUtil();
+		try {
+			int res = service.editRole(role, session);
+			msg.setSuccess(true);
+			msg.setMessage("成功修改" + res + "数据！");
+		} catch (Exception e) {
+			msg.setSuccess(false);
+			msg.setMessage(e.getMessage());
 		}
-		
-		@ResponseBody
-		@RequestMapping("editRole")
-		public String editRole(Role role,HttpSession session) {
-			MsgUtil msg = new MsgUtil();
-			try {
-				int res = service.editRole(role,session);
-				msg.setSuccess(true);
-				msg.setMessage("成功修改" + res + "数据！");
-			} catch (Exception e) {
-				msg.setSuccess(false);
-				msg.setMessage(e.getMessage());
-			}
-			return JSON.toJSONString(msg);
-		}
-	
-	
+		return JSON.toJSONString(msg);
+	}
+
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param role
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:14:49
+	 */
 	@ResponseBody
 	@RequestMapping("query")
 	public String query(Role role) {
 		DataGridResult rs = service.query(role);
 		return JSON.toJSONString(rs);
 	}
-	
-	
+
+	/**
+	 * 
+	 * @MethodName: roleCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:14:51
+	 */
 	@ResponseBody
 	@RequestMapping("roleCombobox")
 	public String roleCombobox() {
 		List<Role> list = service.roleCombobox();
 		return JSON.toJSONString(list);
 	}
-	
+
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param ids
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:14:54
+	 */
 	@ResponseBody
 	@RequestMapping("remove")
 	public String remove(String ids) {
@@ -104,5 +169,5 @@ public class RoleController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
+
 }

@@ -19,6 +19,11 @@ import com.zy.mapper.system.Role_AuthMapper;
 import com.zy.service.system.RoleService;
 import com.zy.utils.UserUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Service
 @Transactional
 public class RoleServiceImpl implements RoleService {
@@ -29,6 +34,15 @@ public class RoleServiceImpl implements RoleService {
 	@Resource
 	private Role_AuthMapper ramapper;
 
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param role
+	 * @return
+	 * @see com.zy.service.system.RoleService#query(com.zy.entity.system.Role)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:19
+	 */
 	@Override
 	public DataGridResult query(Role role) {
 		// TODO Auto-generated method stub
@@ -40,6 +54,17 @@ public class RoleServiceImpl implements RoleService {
 		return rs;
 	}
 
+	/**
+	 * 
+	 * @MethodName: addRole
+	 * @param role
+	 * @param session
+	 * @return
+	 * @see com.zy.service.system.RoleService#addRole(com.zy.entity.system.Role,
+	 *      javax.servlet.http.HttpSession)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:22
+	 */
 	@Override
 	public int addRole(Role role, HttpSession session) {
 		// TODO Auto-generated method stub
@@ -56,6 +81,15 @@ public class RoleServiceImpl implements RoleService {
 		return res;
 	}
 
+	/**
+	 * 
+	 * @MethodName: findById
+	 * @param id
+	 * @return
+	 * @see com.zy.service.system.RoleService#findById(java.lang.Integer)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:25
+	 */
 	@Override
 	public Role findById(Integer id) {
 		// TODO Auto-generated method stub
@@ -69,6 +103,17 @@ public class RoleServiceImpl implements RoleService {
 		return role;
 	}
 
+	/**
+	 * 
+	 * @MethodName: editRole
+	 * @param role
+	 * @param session
+	 * @return
+	 * @see com.zy.service.system.RoleService#editRole(com.zy.entity.system.Role,
+	 *      javax.servlet.http.HttpSession)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:29
+	 */
 	@Override
 	public int editRole(Role role, HttpSession session) {
 		// TODO Auto-generated method stub
@@ -85,19 +130,36 @@ public class RoleServiceImpl implements RoleService {
 		return mapper.updateByPrimaryKeySelective(role);
 	}
 
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param ids
+	 * @return
+	 * @see com.zy.service.system.RoleService#remove(java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:33
+	 */
 	@Override
 	public int remove(String ids) {
 		// TODO Auto-generated method stub
 		int res = 0;
 		String[] data = ids.split(",");
 		for (String id : data) {
-			//先删除中间表
+			// 先删除中间表
 			ramapper.deleteByRoleId(Integer.parseInt(id));
 			res += mapper.deleteByPrimaryKey(Integer.parseInt(id));
 		}
 		return res;
 	}
 
+	/**
+	 * 
+	 * @MethodName: roleCombobox
+	 * @return
+	 * @see com.zy.service.system.RoleService#roleCombobox()
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:36
+	 */
 	@Override
 	public List<Role> roleCombobox() {
 		// TODO Auto-generated method stub

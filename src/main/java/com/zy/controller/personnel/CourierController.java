@@ -1,6 +1,5 @@
 package com.zy.controller.personnel;
 
-
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,33 +18,69 @@ import com.zy.entity.service.OrderInfo;
 import com.zy.service.personnel.CourierService;
 import com.zy.utils.MsgUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("personnel/courierInfo")
 public class CourierController {
-	
+
 	@Resource
 	private CourierService service;
-	
+
+	/**
+	 * 
+	 * @MethodName: courierInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:32
+	 */
 	@RequestMapping("courierInfo")
 	public String courierInfo() {
 		return "personnel/courierInfo";
 	}
-	
-	//查询快递员
+
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param courierInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:36
+	 */
+	// 查询快递员
 	@ResponseBody
 	@RequestMapping("query")
 	public String query(CourierInfo courierInfo) {
 		DataGridResult rs = service.query(courierInfo);
 		return JSON.toJSONString(rs);
 	}
-	
-	//跳转courierAdd
+
+	/**
+	 * 
+	 * @MethodName: courierAdd
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:39
+	 */
+	// 跳转courierAdd
 	@RequestMapping("courierAdd")
 	public String courierAdd() {
 		return "personnel/courierAdd";
 	}
-	
-	//添加快递员
+
+	/**
+	 * 
+	 * @MethodName: addCourierInfo
+	 * @param record
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:41
+	 */
+	// 添加快递员
 	@ResponseBody
 	@RequestMapping("addCourierInfo")
 	public String addCourierInfo(CourierInfo record, HttpSession session) {
@@ -60,7 +95,16 @@ public class CourierController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	//检查userid是否存在
+
+	/**
+	 * 
+	 * @MethodName: checkCourierid
+	 * @param courierId
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:45
+	 */
+	// 检查userid是否存在
 	@ResponseBody
 	@RequestMapping("checkCourierid")
 	public String checkCourierid(Integer courierId) {
@@ -73,9 +117,16 @@ public class CourierController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
-	
-	//跳转courierEdit
+
+	/**
+	 * 
+	 * @MethodName: courierEdit
+	 * @param courierId
+	 * @return ModelAndView
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:48
+	 */
+	// 跳转courierEdit
 	@RequestMapping("courierEdit")
 	public ModelAndView courierEdit(Integer courierId) {
 		ModelAndView mav = new ModelAndView();
@@ -83,15 +134,24 @@ public class CourierController {
 		mav.setViewName("personnel/courierEdit");
 		mav.addObject("courierInfo", courierInfo);
 		return mav;
-		}
-	
-	//修改快递员信息
+	}
+
+	/**
+	 * 
+	 * @MethodName: editCourierInfo
+	 * @param record
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:52
+	 */
+	// 修改快递员信息
 	@ResponseBody
 	@RequestMapping("editCourierInfo")
-	public String editCourierInfo(CourierInfo record,HttpSession session) {
+	public String editCourierInfo(CourierInfo record, HttpSession session) {
 		MsgUtil msg = new MsgUtil();
 		try {
-			int res = service.editCourierInfo(record,session);
+			int res = service.editCourierInfo(record, session);
 			msg.setSuccess(true);
 			msg.setMessage("成功修改" + res + "数据！");
 		} catch (Exception e) {
@@ -100,8 +160,16 @@ public class CourierController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
-	//删除快递员信息
+
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param courierInfoIds
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:56
+	 */
+	// 删除快递员信息
 	@ResponseBody
 	@RequestMapping("remove")
 	public String remove(String courierInfoIds) {
@@ -116,19 +184,41 @@ public class CourierController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
+
+	/**
+	 * 
+	 * @MethodName: ClogisticsUpdate
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:59
+	 */
 	@RequestMapping("ClogisticsUpdate")
 	public String ClogisticsUpdate() {
 		return "personnel/ClogisticsUpdate";
 	}
-	
+
+	/**
+	 * 
+	 * @MethodName: ClogisticsIdCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:02
+	 */
 	@ResponseBody
 	@RequestMapping("ClogisticsIdCombobox")
 	public String ClogisticsIdCombobox() {
 		List<OrderInfo> olist = service.selectOrderList();
 		return JSON.toJSONString(olist);
 	}
-	
+
+	/**
+	 * 
+	 * @MethodName: ClogisticsInfoUpdate
+	 * @param logisticsInfoUpdate
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:05
+	 */
 	@ResponseBody
 	@RequestMapping("ClogisticsInfoUpdate")
 	public String ClogisticsInfoUpdate(LogisticsInfo logisticsInfoUpdate) {
@@ -142,5 +232,5 @@ public class CourierController {
 			msg.setMessage(e.getMessage());
 		}
 		return JSON.toJSONString(msg);
-	}	
+	}
 }

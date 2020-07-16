@@ -17,30 +17,53 @@ import com.zy.entity.service.OrderInfo;
 import com.zy.service.service.OrderService;
 import com.zy.utils.MsgUtil;
 
-
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("service/order")
 public class OrderController {
-	
+
 	@Resource
 	private OrderService oservice;
-	
-	
-	
+
+	/**
+	 * 
+	 * @MethodName: order
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:13:13
+	 */
 	@RequestMapping("order")
 	public String order() {
 		return "service/order";
 	}
-	
-	
+
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param order
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:13:16
+	 */
 	@ResponseBody
 	@RequestMapping("query")
 	public String query(OrderInfo order) {
 		DataGridResult rs = oservice.query(order);
 		return JSON.toJSONString(rs);
 	}
-	
-	
+
+	/**
+	 * 
+	 * @MethodName: orderRemove
+	 * @param ids
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:13:19
+	 */
 	@ResponseBody
 	@RequestMapping("orderRemove")
 	public String orderRemove(String ids) {
@@ -55,8 +78,15 @@ public class OrderController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
-	
+
+	/**
+	 * 
+	 * @MethodName: orderEdit
+	 * @param orderId
+	 * @return ModelAndView
+	 * @Description: TODO
+	 * @date 2020-07-16 07:13:23
+	 */
 	@RequestMapping("orderEdit")
 	public ModelAndView orderEdit(String orderId) {
 		System.out.println(orderId);
@@ -70,14 +100,24 @@ public class OrderController {
 		mav.addObject("driverlist", driverlist);
 		return mav;
 	}
-	
-	
+
+	/**
+	 * 
+	 * @MethodName: editOrder
+	 * @param orderId
+	 * @param orderState
+	 * @param driverId
+	 * @param courierId
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:13:26
+	 */
 	@ResponseBody
 	@RequestMapping("editOrder")
-	public String editOrder(String orderId,Integer orderState,Integer driverId,Integer courierId) {
+	public String editOrder(String orderId, Integer orderState, Integer driverId, Integer courierId) {
 		MsgUtil msg = new MsgUtil();
 		try {
-			int res = oservice.editOrder(orderId,orderState,driverId,courierId);
+			int res = oservice.editOrder(orderId, orderState, driverId, courierId);
 			msg.setSuccess(true);
 			msg.setMessage("成功修改" + res + "条订单！");
 		} catch (Exception e) {
@@ -86,5 +126,5 @@ public class OrderController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
+
 }

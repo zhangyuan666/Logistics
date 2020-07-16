@@ -17,19 +17,38 @@ import com.zy.entity.service.OrderInfo;
 import com.zy.service.department.ServiceInfoService;
 import com.zy.utils.MsgUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("department/serviceInfo")
 public class ServiceInfoController {
-
 	@Resource
 	private ServiceInfoService serviceInfoService;
 
+	/**
+	 * 
+	 * @MethodName: station
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:08:38
+	 */
 	// 跳转serviceInfo
 	@RequestMapping("serviceInfo")
 	public String station() {
 		return "department/serviceInfo";
 	}
 
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param serviceInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:08:41
+	 */
 	// 查询用户
 	@ResponseBody
 	@RequestMapping("query")
@@ -38,6 +57,14 @@ public class ServiceInfoController {
 		return JSON.toJSONString(rs);
 	}
 
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param serviceIds
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:08:45
+	 */
 	@ResponseBody
 	@RequestMapping("remove")
 	public String remove(String serviceIds) {
@@ -53,12 +80,27 @@ public class ServiceInfoController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: serviceInfoAdd
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:08:49
+	 */
 	// 跳转serviceInfoAdd
 	@RequestMapping("serviceInfoAdd")
 	public String serviceInfoAdd() {
 		return "department/serviceInfoAdd";
 	}
 
+	/**
+	 * 
+	 * @MethodName: addserviceInfo
+	 * @param serviceInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:08:52
+	 */
 	// 添加服务点
 	@ResponseBody
 	@RequestMapping("addserviceInfo")
@@ -75,6 +117,14 @@ public class ServiceInfoController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: checkUserid
+	 * @param serviceId
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:08:55
+	 */
 	// 检查ServiceId是否存在
 	@ResponseBody
 	@RequestMapping("checkServiceId")
@@ -89,6 +139,14 @@ public class ServiceInfoController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: serviceInfoEdit
+	 * @param serviceId
+	 * @return ModelAndView
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:00
+	 */
 	// 跳转serviceInfoEdit
 	@RequestMapping("serviceInfoEdit")
 	public ModelAndView serviceInfoEdit(Integer serviceId) {
@@ -99,6 +157,14 @@ public class ServiceInfoController {
 		return mav;
 	}
 
+	/**
+	 * 
+	 * @MethodName: editserviceInfo
+	 * @param serviceInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:03
+	 */
 	// 修改服务点
 	@ResponseBody
 	@RequestMapping("editserviceInfo")
@@ -115,20 +181,36 @@ public class ServiceInfoController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: serviceInfoDelivery
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:06
+	 */
 	// 跳转serviceInfoDelivery
 	@RequestMapping("serviceInfoDelivery")
 	public String serviceInfoDelivery() {
 		return "department/serviceInfoDelivery";
 	}
 
+	/**
+	 * 
+	 * @MethodName: deliveryserviceInfo
+	 * @param courierInfo
+	 * @param orderId
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:10
+	 */
 	// 配送
 	@ResponseBody
 	@RequestMapping("deliveryserviceInfo")
-	public String deliveryserviceInfo(CourierInfo courierInfo,String orderId) {
+	public String deliveryserviceInfo(CourierInfo courierInfo, String orderId) {
 		MsgUtil msg = new MsgUtil();
 		try {
 			int res = serviceInfoService.deliveryserviceInfo(courierInfo);
-			serviceInfoService.updateOrder(orderId,courierInfo.getCourierId());
+			serviceInfoService.updateOrder(orderId, courierInfo.getCourierId());
 			msg.setSuccess(true);
 			msg.setMessage("成功分配" + res + "条配送任务！");
 		} catch (Exception e) {
@@ -138,6 +220,13 @@ public class ServiceInfoController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: courierCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:13
+	 */
 	@ResponseBody
 	@RequestMapping("courierCombobox")
 	public String courierCombobox() {
@@ -145,21 +234,27 @@ public class ServiceInfoController {
 		return JSON.toJSONString(list);
 	}
 
-	
-	/* @ResponseBody
-	 @RequestMapping("setValues") 
-	 public String setValues(Integer courierId) {
-	    List<CourierInfo> res = serviceInfoService.setValues(courierId); return
-	    JSON.toJSONString(res); 
-	 }*/
-	 
-
+	/**
+	 * 
+	 * @MethodName: serviceInfoReceive
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:21
+	 */
 	// 跳转serviceInfoReceive
 	@RequestMapping("serviceInfoReceive")
 	public String serviceInfoReceive() {
 		return "department/serviceInfoReceive";
 	}
 
+	/**
+	 * 
+	 * @MethodName: receiveserviceInfo
+	 * @param courierInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:23
+	 */
 	// 揽件
 	@ResponseBody
 	@RequestMapping("receiveserviceInfo")
@@ -175,22 +270,37 @@ public class ServiceInfoController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
-	//物流更新
+
+	/**
+	 * 
+	 * @MethodName: serviceInfoLogistics
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:27
+	 */
+	// 物流更新
 	// 跳转serviceInfoLogistics
 	@RequestMapping("serviceInfoLogistics")
 	public String serviceInfoLogistics() {
 		return "department/serviceInfoLogistics";
 	}
-	
 
+	/**
+	 * 
+	 * @MethodName: logisticsserviceInfo
+	 * @param orderInfo
+	 * @param logisticsInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:30
+	 */
 	// 物流更新
 	@ResponseBody
 	@RequestMapping("logisticsserviceInfo")
-	public String logisticsserviceInfo(OrderInfo orderInfo,String logisticsInfo) {
+	public String logisticsserviceInfo(OrderInfo orderInfo, String logisticsInfo) {
 		MsgUtil msg = new MsgUtil();
 		try {
-			int res = serviceInfoService.logisticsserviceInfo(orderInfo,logisticsInfo);
+			int res = serviceInfoService.logisticsserviceInfo(orderInfo, logisticsInfo);
 			msg.setSuccess(true);
 			msg.setMessage("成功更新" + res + "条物流信息！");
 		} catch (Exception e) {
@@ -199,17 +309,18 @@ public class ServiceInfoController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
+
+	/**
+	 * 
+	 * @MethodName: orderCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:34
+	 */
 	@ResponseBody
 	@RequestMapping("orderCombobox")
 	public String orderCombobox() {
 		List<OrderInfo> list = serviceInfoService.orderCombobox();
 		return JSON.toJSONString(list);
 	}
-	 /*@ResponseBody
-	 @RequestMapping("setValues") 
-	 public String setValues(Integer orderId) {
-	    List<OrderInfo> res = serviceInfoService.setValues(orderId); 
-	    return JSON.toJSONString(res); 
-	 }*/
 }

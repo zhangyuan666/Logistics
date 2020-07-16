@@ -19,6 +19,11 @@ import com.zy.mapper.service.LogisticsInfoMapper;
 import com.zy.mapper.service.OrderInfoMapper;
 import com.zy.service.service.OrderService;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Transactional
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -31,16 +36,25 @@ public class OrderServiceImpl implements OrderService {
 
 	@Resource
 	private LogisticsInfoMapper logmapper;
-	
+
 	@Resource
 	private CourierInfoMapper courmapper;
-	
+
 	@Resource
 	private RecipientInfoMapper recmapper;
-	
+
 	@Resource
 	private DriverInfoMapper dmapper;
 
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param order
+	 * @return
+	 * @see com.zy.service.service.OrderService#query(com.zy.entity.service.OrderInfo)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:40:58
+	 */
 	@Override
 	public DataGridResult query(OrderInfo order) {
 		// TODO Auto-generated method stub
@@ -52,6 +66,15 @@ public class OrderServiceImpl implements OrderService {
 		return rs;
 	}
 
+	/**
+	 * 
+	 * @MethodName: orderRemove
+	 * @param ids
+	 * @return
+	 * @see com.zy.service.service.OrderService#orderRemove(java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:41:01
+	 */
 	@Override
 	public int orderRemove(String ids) {
 		int res = 0;
@@ -65,14 +88,36 @@ public class OrderServiceImpl implements OrderService {
 		return res;
 	}
 
+	/**
+	 * 
+	 * @MethodName: selectOrderById
+	 * @param orderId
+	 * @return
+	 * @see com.zy.service.service.OrderService#selectOrderById(java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:41:04
+	 */
 	@Override
 	public OrderInfo selectOrderById(String orderId) {
 		// TODO Auto-generated method stub
 		return omapper.selectByPrimaryKey(orderId);
 	}
 
+	/**
+	 * 
+	 * @MethodName: editOrder
+	 * @param orderId
+	 * @param orderState
+	 * @param driverId
+	 * @param courierId
+	 * @return
+	 * @see com.zy.service.service.OrderService#editOrder(java.lang.String,
+	 *      java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:41:07
+	 */
 	@Override
-	public int editOrder(String orderId, Integer orderState,Integer driverId,Integer courierId) {
+	public int editOrder(String orderId, Integer orderState, Integer driverId, Integer courierId) {
 		// TODO Auto-generated method stub
 		OrderInfo order = omapper.selectByPrimaryKey(orderId);
 		order.setOrderId(orderId);
@@ -82,12 +127,28 @@ public class OrderServiceImpl implements OrderService {
 		return omapper.updateByPrimaryKeySelective(order);
 	}
 
+	/**
+	 * 
+	 * @MethodName: selectCourList
+	 * @return
+	 * @see com.zy.service.service.OrderService#selectCourList()
+	 * @Description: TODO
+	 * @date 2020-07-16 07:41:12
+	 */
 	@Override
 	public List<CourierInfo> selectCourList() {
 		// TODO Auto-generated method stub
 		return courmapper.selectCourList();
 	}
 
+	/**
+	 * 
+	 * @MethodName: selectDriveList
+	 * @return
+	 * @see com.zy.service.service.OrderService#selectDriveList()
+	 * @Description: TODO
+	 * @date 2020-07-16 07:41:15
+	 */
 	@Override
 	public List<DriverInfo> selectDriveList() {
 		// TODO Auto-generated method stub

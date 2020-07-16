@@ -19,6 +19,11 @@ import com.zy.entity.system.User_Role;
 import com.zy.service.system.UserService;
 import com.zy.utils.MsgUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("system/user")
 public class UserController {
@@ -26,6 +31,16 @@ public class UserController {
 	@Resource
 	private UserService service;
 
+	/**
+	 * 
+	 * @MethodName: login
+	 * @param id
+	 * @param password
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:07
+	 */
 	// 登录
 	@ResponseBody
 	@RequestMapping("login")
@@ -47,6 +62,14 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: logout
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:11
+	 */
 	// 退出系统
 	@ResponseBody
 	@RequestMapping("logout")
@@ -57,6 +80,16 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: edit
+	 * @param oldpassword
+	 * @param newpassword
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:15
+	 */
 	// 修改密码
 	@ResponseBody
 	@RequestMapping("edit")
@@ -85,12 +118,27 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: user
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:18
+	 */
 	// 跳转user
 	@RequestMapping("user")
 	public String user() {
 		return "system/user";
 	}
 
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param user
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:20
+	 */
 	// 查询用户
 	@ResponseBody
 	@RequestMapping("query")
@@ -99,6 +147,14 @@ public class UserController {
 		return JSON.toJSONString(rs);
 	}
 
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param ids
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:23
+	 */
 	// 删除用户
 	@ResponseBody
 	@RequestMapping("remove")
@@ -115,12 +171,28 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: userAdd
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:26
+	 */
 	// 跳转userAdd
 	@RequestMapping("userAdd")
 	public String userAdd() {
 		return "system/userAdd";
 	}
 
+	/**
+	 * 
+	 * @MethodName: addUser
+	 * @param user
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:29
+	 */
 	// 添加用户
 	@ResponseBody
 	@RequestMapping("addUser")
@@ -137,6 +209,14 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: checkUserid
+	 * @param id
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:32
+	 */
 	// 检查userid是否存在
 	@ResponseBody
 	@RequestMapping("checkUserid")
@@ -151,6 +231,14 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: resetPwd
+	 * @param ids
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:35
+	 */
 	// 重置密码
 	@ResponseBody
 	@RequestMapping("resetPwd")
@@ -167,6 +255,14 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: userEdit
+	 * @param id
+	 * @return ModelAndView
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:38
+	 */
 	// userEdit跳转携带user
 	@RequestMapping("userEdit")
 	public ModelAndView userEdit(String id) {
@@ -177,6 +273,15 @@ public class UserController {
 		return mav;
 	}
 
+	/**
+	 * 
+	 * @MethodName: editUser
+	 * @param user
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:40
+	 */
 	// 修改信息
 	@ResponseBody
 	@RequestMapping("editUser")
@@ -193,6 +298,13 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: roleCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:43
+	 */
 	@ResponseBody
 	@RequestMapping("roleCombobox")
 	public String roleCombobox() {
@@ -200,6 +312,14 @@ public class UserController {
 		return JSON.toJSONString(list);
 	}
 
+	/**
+	 * 
+	 * @MethodName: setValues
+	 * @param id
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:47
+	 */
 	@ResponseBody
 	@RequestMapping("setValues")
 	public String setValues(String id) {
@@ -207,11 +327,27 @@ public class UserController {
 		return JSON.toJSONString(res);
 	}
 
+	/**
+	 * 
+	 * @MethodName: userImp
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:50
+	 */
 	@RequestMapping("userImp")
 	public String userImp() {
 		return "system/userImp";
 	}
 
+	/**
+	 * 
+	 * @MethodName: imp
+	 * @param userFile
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:53
+	 */
 	@ResponseBody
 	@RequestMapping("imp")
 	public String imp(MultipartFile userFile, HttpSession session) {
@@ -227,6 +363,13 @@ public class UserController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: pageHelperTest
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:15:56
+	 */
 	// pageHelper测试
 	@ResponseBody
 	@RequestMapping("test")

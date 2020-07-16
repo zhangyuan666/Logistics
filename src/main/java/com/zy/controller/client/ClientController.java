@@ -1,7 +1,5 @@
 package com.zy.controller.client;
 
-
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +15,11 @@ import com.zy.service.client.ClientService;
 import com.zy.service.client.DingDanService;
 import com.zy.utils.MsgUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("client/user")
 public class ClientController {
@@ -25,11 +28,21 @@ public class ClientController {
 	@Resource
 	private ClientService service;
 
+	/**
+	 * 
+	 * @MethodName: login
+	 * @param id
+	 * @param password
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:06:02
+	 */
 	// 登录
 	@ResponseBody
 	@RequestMapping("login")
 	public String login(String id, String password, HttpSession session) {
-		System.out.println(id+" "+password);
+		System.out.println(id + " " + password);
 		MsgUtil msg = new MsgUtil();
 		UserLogin u = service.login(id, password);
 
@@ -45,6 +58,15 @@ public class ClientController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: addUser
+	 * @param user
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:06:41
+	 */
 	// 注册
 	@ResponseBody
 	@RequestMapping("addUser")
@@ -62,6 +84,16 @@ public class ClientController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: edit
+	 * @param oldpassword
+	 * @param newpassword
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:06:46
+	 */
 	// 修改密码
 	@ResponseBody
 	@RequestMapping("edit")
@@ -90,6 +122,17 @@ public class ClientController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: find
+	 * @param id
+	 * @param newpassword
+	 * @param userTel
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:06:50
+	 */
 	// 找回密码
 	@ResponseBody
 	@RequestMapping("find")
@@ -118,6 +161,15 @@ public class ClientController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: editUser
+	 * @param user
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:06:54
+	 */
 	// 修改信息
 	@ResponseBody
 	@RequestMapping("editUser")

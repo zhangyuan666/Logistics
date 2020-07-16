@@ -19,12 +19,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.zy.utils.MsgUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("img")
 public class ImgController {
 
-	
-	
+	/**
+	 * 
+	 * @MethodName: imgCode
+	 * @param imgCode
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:16:10
+	 */
 	@ResponseBody
 	@RequestMapping("imgCode")
 	public String imgCode(String imgCode, HttpSession session) {
@@ -44,8 +56,17 @@ public class ImgController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	
-	
+
+	/**
+	 * 
+	 * @MethodName: img
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @throws IOException void
+	 * @Description: TODO
+	 * @date 2020-07-16 07:16:14
+	 */
 	@RequestMapping("img")
 	public void img(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		int width = 63;
@@ -89,6 +110,15 @@ public class ImgController {
 
 	}
 
+	/**
+	 * 
+	 * @MethodName: getRandColor
+	 * @param fc
+	 * @param bc
+	 * @return Color
+	 * @Description: TODO
+	 * @date 2020-07-16 07:16:19
+	 */
 	// 创建颜色
 	private Color getRandColor(int fc, int bc) {
 		Random random = new Random();

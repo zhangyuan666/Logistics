@@ -34,6 +34,11 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -50,6 +55,17 @@ public class UserServiceImpl implements UserService {
 	@Resource
 	private Role_AuthMapper ramapper;
 
+	/**
+	 * 
+	 * @MethodName: login
+	 * @param id
+	 * @param password
+	 * @return
+	 * @see com.zy.service.system.UserService#login(java.lang.String,
+	 *      java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:46
+	 */
 	@Override
 	public User login(String id, String password) {
 		// TODO Auto-generated method stub
@@ -83,6 +99,18 @@ public class UserServiceImpl implements UserService {
 		return u;
 	}
 
+	/**
+	 * 
+	 * @MethodName: editpassword
+	 * @param id
+	 * @param oldpassword
+	 * @param newpassword
+	 * @return
+	 * @see com.zy.service.system.UserService#editpassword(java.lang.String,
+	 *      java.lang.String, java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:50
+	 */
 	@Override
 	public int editpassword(String id, String oldpassword, String newpassword) {
 		// TODO Auto-generated method stub
@@ -90,6 +118,15 @@ public class UserServiceImpl implements UserService {
 		return mapper.editpassword(id, Md5Util.md5(oldpassword), Md5Util.md5(newpassword));
 	}
 
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param user
+	 * @return
+	 * @see com.zy.service.system.UserService#query(com.zy.entity.system.User)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:53
+	 */
 	@Override
 	public DataGridResult query(User user) {
 		// TODO Auto-generated method stub
@@ -102,6 +139,15 @@ public class UserServiceImpl implements UserService {
 		return rs;
 	}
 
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param ids
+	 * @return
+	 * @see com.zy.service.system.UserService#remove(java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:42:56
+	 */
 	@Override
 	public int remove(String ids) {
 		// TODO Auto-generated method stub
@@ -114,6 +160,17 @@ public class UserServiceImpl implements UserService {
 		return res;
 	}
 
+	/**
+	 * 
+	 * @MethodName: addUser
+	 * @param user
+	 * @param session
+	 * @return
+	 * @see com.zy.service.system.UserService#addUser(com.zy.entity.system.User,
+	 *      javax.servlet.http.HttpSession)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:43:00
+	 */
 	@Override
 	public int addUser(User user, HttpSession session) {
 		// TODO Auto-generated method stub
@@ -135,12 +192,30 @@ public class UserServiceImpl implements UserService {
 		return res;
 	}
 
+	/**
+	 * 
+	 * @MethodName: checkid
+	 * @param id
+	 * @return
+	 * @see com.zy.service.system.UserService#checkid(java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:43:04
+	 */
 	@Override
 	public User checkid(String id) {
 		// TODO Auto-generated method stub
 		return mapper.selectByPrimaryKey(id);
 	}
 
+	/**
+	 * 
+	 * @MethodName: resetPwd
+	 * @param ids
+	 * @return
+	 * @see com.zy.service.system.UserService#resetPwd(java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:43:07
+	 */
 	@Override
 	public int resetPwd(String ids) {
 		// TODO Auto-generated method stub
@@ -154,6 +229,17 @@ public class UserServiceImpl implements UserService {
 		return res;
 	}
 
+	/**
+	 * 
+	 * @MethodName: editUser
+	 * @param user
+	 * @param session
+	 * @return
+	 * @see com.zy.service.system.UserService#editUser(com.zy.entity.system.User,
+	 *      javax.servlet.http.HttpSession)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:43:10
+	 */
 	@Override
 	public int editUser(User user, HttpSession session) {
 		// TODO Auto-generated method stub
@@ -176,18 +262,46 @@ public class UserServiceImpl implements UserService {
 		return mapper.updateByPrimaryKeySelective(user);
 	}
 
+	/**
+	 * 
+	 * @MethodName: roleCombobox
+	 * @return
+	 * @see com.zy.service.system.UserService#roleCombobox()
+	 * @Description: TODO
+	 * @date 2020-07-16 07:43:14
+	 */
 	@Override
 	public List<Role> roleCombobox() {
 		// TODO Auto-generated method stub
 		return rmapper.roleCombobox();
 	}
 
+	/**
+	 * 
+	 * @MethodName: setValues
+	 * @param id
+	 * @return
+	 * @see com.zy.service.system.UserService#setValues(java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:43:17
+	 */
 	@Override
 	public List<User_Role> setValues(String id) {
 		// TODO Auto-generated method stub
 		return urmapper.setValues(id);
 	}
 
+	/**
+	 * 
+	 * @MethodName: imp
+	 * @param userFile
+	 * @param session
+	 * @return
+	 * @see com.zy.service.system.UserService#imp(org.springframework.web.multipart.MultipartFile,
+	 *      javax.servlet.http.HttpSession)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:43:20
+	 */
 	@Override
 	public int imp(MultipartFile userFile, HttpSession session) {
 		// TODO Auto-generated method stub
@@ -245,15 +359,23 @@ public class UserServiceImpl implements UserService {
 		return count;
 	}
 
+	/**
+	 * 
+	 * @MethodName: list
+	 * @return
+	 * @see com.zy.service.system.UserService#list()
+	 * @Description: TODO
+	 * @date 2020-07-16 07:43:26
+	 */
 	@Override
 	public List<User> list() {
 		// TODO Auto-generated method stub
-		//设置分页第1页2行
-		PageHelper.startPage(1,2);
+		// 设置分页第1页2行
+		PageHelper.startPage(1, 2);
 		List<User> list = mapper.list();
-		
+
 		PageInfo<User> info = new PageInfo<>(list);
-		System.out.println("总数total:"+info.getTotal());
+		System.out.println("总数total:" + info.getTotal());
 		return list;
 	}
 

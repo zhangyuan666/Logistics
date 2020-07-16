@@ -18,6 +18,11 @@ import com.zy.entity.service.OrderInfo;
 import com.zy.service.personnel.DriverService;
 import com.zy.utils.MsgUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("personnel/driverInfo")
 public class DriverController {
@@ -25,11 +30,26 @@ public class DriverController {
 	@Resource
 	private DriverService service;
 
+	/**
+	 * 
+	 * @MethodName: driverInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:25
+	 */
 	@RequestMapping("driverInfo")
 	public String driverInfo() {
 		return "personnel/driverInfo";
 	}
 
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param driverInfo
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:28
+	 */
 	// 查询配送员
 	@ResponseBody
 	@RequestMapping("query")
@@ -38,11 +58,27 @@ public class DriverController {
 		return JSON.toJSONString(rs);
 	}
 
+	/**
+	 * 
+	 * @MethodName: driverAdd
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:31
+	 */
 	@RequestMapping("driverAdd")
 	public String driverAdd() {
 		return "personnel/driverAdd";
 	}
 
+	/**
+	 * 
+	 * @MethodName: addDriverInfo
+	 * @param record
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:34
+	 */
 	@ResponseBody
 	@RequestMapping("addDriverInfo")
 	public String addDriverInfo(DriverInfo record, HttpSession session) {
@@ -58,6 +94,14 @@ public class DriverController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: checkDriverid
+	 * @param driverId
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:37
+	 */
 	// 检查userid是否存在
 	@ResponseBody
 	@RequestMapping("checkDriverid")
@@ -72,6 +116,14 @@ public class DriverController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: driverEdit
+	 * @param driverId
+	 * @return ModelAndView
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:42
+	 */
 	@RequestMapping("driverEdit")
 	public ModelAndView driverEdit(Integer driverId) {
 		ModelAndView mav = new ModelAndView();
@@ -81,6 +133,15 @@ public class DriverController {
 		return mav;
 	}
 
+	/**
+	 * 
+	 * @MethodName: editDriverInfo
+	 * @param record
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:45
+	 */
 	// 修改快递员信息
 	@ResponseBody
 	@RequestMapping("editDriverInfo")
@@ -97,6 +158,14 @@ public class DriverController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param driverInfoIds
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:48
+	 */
 	@ResponseBody
 	@RequestMapping("remove")
 	public String remove(String driverInfoIds) {
@@ -112,11 +181,25 @@ public class DriverController {
 		return JSON.toJSONString(msg);
 	}
 
+	/**
+	 * 
+	 * @MethodName: DlogisticsUpdate
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:51
+	 */
 	@RequestMapping("DlogisticsUpdate")
 	public String DlogisticsUpdate() {
 		return "personnel/DlogisticsUpdate";
 	}
 
+	/**
+	 * 
+	 * @MethodName: DlogisticsIdCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:54
+	 */
 	@ResponseBody
 	@RequestMapping("DlogisticsIdCombobox")
 	public String DlogisticsIdCombobox() {
@@ -124,6 +207,14 @@ public class DriverController {
 		return JSON.toJSONString(olist);
 	}
 
+	/**
+	 * 
+	 * @MethodName: DlogisticsInfoUpdate
+	 * @param logisticsInfoUpdate
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:12:58
+	 */
 	@ResponseBody
 	@RequestMapping("DlogisticsInfoUpdate")
 	public String DlogisticsInfoUpdate(LogisticsInfo logisticsInfoUpdate) {

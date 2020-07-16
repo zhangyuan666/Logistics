@@ -17,6 +17,11 @@ import com.zy.mapper.service.LogisticsInfoMapper;
 import com.zy.mapper.service.OrderInfoMapper;
 import com.zy.service.department.ServiceInfoService;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Service
 @Transactional
 public class ServiceInfoServiceImpl implements ServiceInfoService {
@@ -33,6 +38,15 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
 	@Resource
 	private LogisticsInfoMapper limapper;
 
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param serviceInfo
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#query(com.zy.entity.department.ServiceInfo)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:37:45
+	 */
 	@Override
 	public DataGridResult query(ServiceInfo serviceInfo) {
 		DataGridResult rs = new DataGridResult();
@@ -43,6 +57,15 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
 		return rs;
 	}
 
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param serviceIds
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#remove(java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:37:48
+	 */
 	@Override
 	@Transactional
 	public int remove(String serviceIds) {
@@ -56,47 +79,105 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
 		return count;
 	}
 
+	/**
+	 * 
+	 * @MethodName: addserviceInfo
+	 * @param serviceInfo
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#addserviceInfo(com.zy.entity.department.ServiceInfo)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:37:51
+	 */
 	@Override
 	public int addserviceInfo(ServiceInfo serviceInfo) {
 
 		return mapper.insertSelective(serviceInfo);
 	}
 
+	/**
+	 * 
+	 * @MethodName: checkserviceId
+	 * @param serviceId
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#checkserviceId(java.lang.Integer)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:37:54
+	 */
 	@Override
 	public ServiceInfo checkserviceId(Integer serviceId) {
 		return mapper.selectByPrimaryKey(serviceId);
 	}
 
+	/**
+	 * 
+	 * @MethodName: editserviceInfo
+	 * @param serviceInfo
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#editserviceInfo(com.zy.entity.department.ServiceInfo)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:37:57
+	 */
 	@Override
 	public int editserviceInfo(ServiceInfo serviceInfo) {
 
 		return mapper.updateByPrimaryKeySelective(serviceInfo);
 	}
 
+	/**
+	 * 
+	 * @MethodName: deliveryserviceInfo
+	 * @param courierInfo
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#deliveryserviceInfo(com.zy.entity.personnel.CourierInfo)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:38:01
+	 */
 	@Override
 	public int deliveryserviceInfo(CourierInfo courierInfo) {
 
 		return cimapper.updateByPrimaryKeySelective(courierInfo);
 	}
 
-	/*
-	 * @Override public List<CourierInfo> setValues(Integer courierId) {
+	/**
 	 * 
-	 * return cimapper.setValues(courierId); }
+	 * @MethodName: courierCombobox
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#courierCombobox()
+	 * @Description: TODO
+	 * @date 2020-07-16 07:38:06
 	 */
-
 	@Override
 	public List<CourierInfo> courierCombobox() {
 
 		return cimapper.courierCombobox();
 	}
 
+	/**
+	 * 
+	 * @MethodName: receiveserviceInfo
+	 * @param courierInfo
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#receiveserviceInfo(com.zy.entity.personnel.CourierInfo)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:38:12
+	 */
 	@Override
 	public int receiveserviceInfo(CourierInfo courierInfo) {
 
 		return cimapper.updateByPrimaryKeySelective(courierInfo);
 	}
 
+	/**
+	 * 
+	 * @MethodName: logisticsserviceInfo
+	 * @param orderInfo
+	 * @param logisticsInfo
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#logisticsserviceInfo(com.zy.entity.service.OrderInfo,
+	 *      java.lang.String)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:38:16
+	 */
 	@Override
 	public int logisticsserviceInfo(OrderInfo orderInfo, String logisticsInfo) {
 
@@ -106,16 +187,35 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
 
 	}
 
+	/**
+	 * 
+	 * @MethodName: orderCombobox
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#orderCombobox()
+	 * @Description: TODO
+	 * @date 2020-07-16 07:38:23
+	 */
 	@Override
 	public List<OrderInfo> orderCombobox() {
 
 		return oimapper.orderCombobox();
 	}
 
+	/**
+	 * 
+	 * @MethodName: updateOrder
+	 * @param orderId
+	 * @param courierId
+	 * @return
+	 * @see com.zy.service.department.ServiceInfoService#updateOrder(java.lang.String,
+	 *      java.lang.Integer)
+	 * @Description: TODO
+	 * @date 2020-07-16 07:38:27
+	 */
 	@Override
 	public int updateOrder(String orderId, Integer courierId) {
 		// TODO Auto-generated method stub
-		return oimapper.updateOrder(orderId,courierId);
+		return oimapper.updateOrder(orderId, courierId);
 	}
 
 }

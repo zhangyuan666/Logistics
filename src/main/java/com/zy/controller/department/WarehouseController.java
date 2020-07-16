@@ -17,24 +17,55 @@ import com.zy.entity.service.OrderInfo;
 import com.zy.service.department.WarehouseService;
 import com.zy.utils.MsgUtil;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("department/warehouse")
 public class WarehouseController {
 	@Resource
 	private WarehouseService warehouseService;
-	//跳转warehouse
+
+	/**
+	 * 
+	 * @MethodName: warehouse
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:49
+	 */
+	// 跳转warehouse
 	@RequestMapping("warehouse")
 	public String warehouse() {
 		return "department/warehouse";
 	}
-	//查询用户
+
+	/**
+	 * 
+	 * @MethodName: query
+	 * @param record
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:52
+	 */
+	// 查询用户
 	@ResponseBody
 	@RequestMapping("query")
 	public String query(WarehouseInfo record) {
 		DataGridResult rs = warehouseService.query(record);
 		return JSON.toJSONString(rs);
-	}	
-	//删除用户
+	}
+
+	/**
+	 * 
+	 * @MethodName: remove
+	 * @param warehouseIds
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:09:56
+	 */
+	// 删除用户
 	@ResponseBody
 	@RequestMapping("remove")
 	public String remove(String warehouseIds) {
@@ -49,12 +80,30 @@ public class WarehouseController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	//跳转添加仓库
+
+	/**
+	 * 
+	 * @MethodName: warehouseAdd
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:26
+	 */
+	// 跳转添加仓库
 	@RequestMapping("warehouseAdd")
 	public String warehouseAdd() {
 		return "department/warehouseAdd";
 	}
-	//添加仓库
+
+	/**
+	 * 
+	 * @MethodName: addWarehouse
+	 * @param record
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:30
+	 */
+	// 添加仓库
 	@ResponseBody
 	@RequestMapping("addWarehouse")
 	public String addWarehouse(WarehouseInfo record, HttpSession session) {
@@ -69,12 +118,21 @@ public class WarehouseController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	//检查WarehouseAddress是否存在
+
+	/**
+	 * 
+	 * @MethodName: checkWarehouseAddress
+	 * @param warehouseAddress
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:34
+	 */
+	// 检查WarehouseAddress是否存在
 	@ResponseBody
 	@RequestMapping("checkWarehouseAddress")
 	public String checkWarehouseAddress(String warehouseAddress) {
 		MsgUtil msg = new MsgUtil();
-		WarehouseInfo record= warehouseService.checkWarehouseAddress(warehouseAddress);
+		WarehouseInfo record = warehouseService.checkWarehouseAddress(warehouseAddress);
 		if (record != null) {
 			msg.setSuccess(true);
 		} else {
@@ -82,7 +140,16 @@ public class WarehouseController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	//warehouseEdit跳转携带warehouse
+
+	/**
+	 * 
+	 * @MethodName: warehouseEdit
+	 * @param warehouseId
+	 * @return ModelAndView
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:38
+	 */
+	// warehouseEdit跳转携带warehouse
 	@RequestMapping("warehouseEdit")
 	public ModelAndView warehouseEdit(int warehouseId) {
 		ModelAndView mav = new ModelAndView();
@@ -91,13 +158,23 @@ public class WarehouseController {
 		mav.addObject("warehouseInfo", warehouseInfo);
 		return mav;
 	}
-	//修改仓库信息
+
+	/**
+	 * 
+	 * @MethodName: editWarehouse
+	 * @param record
+	 * @param session
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:42
+	 */
+	// 修改仓库信息
 	@ResponseBody
 	@RequestMapping("editWarehouse")
-	public String editWarehouse(WarehouseInfo record,HttpSession session) {
+	public String editWarehouse(WarehouseInfo record, HttpSession session) {
 		MsgUtil msg = new MsgUtil();
 		try {
-			int res = warehouseService.editWarehouse(record,session);
+			int res = warehouseService.editWarehouse(record, session);
 			msg.setSuccess(true);
 			msg.setMessage("成功修改" + res + "条数据！");
 		} catch (Exception e) {
@@ -106,19 +183,44 @@ public class WarehouseController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	//跳转收货
+
+	/**
+	 * 
+	 * @MethodName: receiving
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:47
+	 */
+	// 跳转收货
 	@RequestMapping("receiving")
 	public String receiving() {
 		return "department/receiving";
 	}
-	//选择快递员ID
+
+	/**
+	 * 
+	 * @MethodName: courierIdCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:50
+	 */
+	// 选择快递员ID
 	@ResponseBody
 	@RequestMapping("courierIdCombobox")
 	public String courierIdCombobox() {
 		List<CourierInfo> courierList = warehouseService.courierIdCombobox();
 		return JSON.toJSONString(courierList);
 	}
-	//快递员派送任务
+
+	/**
+	 * 
+	 * @MethodName: courierTask
+	 * @param courierTask
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:54
+	 */
+	// 快递员派送任务
 	@ResponseBody
 	@RequestMapping("courierTask")
 	public String courierTask(CourierInfo courierTask) {
@@ -132,20 +234,38 @@ public class WarehouseController {
 			msg.setMessage(e.getMessage());
 		}
 		return JSON.toJSONString(msg);
-	}	
-	//跳转仓库发货
+	}
+
+	/**
+	 * 
+	 * @MethodName: shipment
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:10:59
+	 */
+	// 跳转仓库发货
 	@RequestMapping("shipment")
 	public String shipment() {
 		return "department/shipment";
 	}
-	//仓库派送任务
+
+	/**
+	 * 
+	 * @MethodName: driverTask
+	 * @param driverTask
+	 * @param orderId
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:02
+	 */
+	// 仓库派送任务
 	@ResponseBody
 	@RequestMapping("driverTask")
-	public String driverTask(DriverInfo driverTask,String orderId) {
+	public String driverTask(DriverInfo driverTask, String orderId) {
 		MsgUtil msg = new MsgUtil();
 		try {
 			int res = warehouseService.driverTask(driverTask);
-			warehouseService.updateOrderDriver(orderId,driverTask.getDriverId());
+			warehouseService.updateOrderDriver(orderId, driverTask.getDriverId());
 			msg.setSuccess(true);
 			msg.setMessage("成功分配" + res + "条任务！");
 		} catch (Exception e) {
@@ -154,26 +274,59 @@ public class WarehouseController {
 		}
 		return JSON.toJSONString(msg);
 	}
-	//选择配送员ID
+
+	/**
+	 * 
+	 * @MethodName: driverIdCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:06
+	 */
+	// 选择配送员ID
 	@ResponseBody
 	@RequestMapping("driverIdCombobox")
 	public String driverIdCombobox() {
 		List<DriverInfo> driverList = warehouseService.driverIdCombobox();
 		return JSON.toJSONString(driverList);
 	}
-	//跳转订单状态(物流更新)
+
+	/**
+	 * 
+	 * @MethodName: logisticsUpdate
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:09
+	 */
+	// 跳转订单状态(物流更新)
 	@RequestMapping("logisticsUpdate")
 	public String logisticsUpdate() {
 		return "department/logisticsUpdate";
 	}
-	//选择订单ID
+
+	/**
+	 * 
+	 * @MethodName: logisticsIdCombobox
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:12
+	 */
+	// 选择订单ID
 	@ResponseBody
 	@RequestMapping("logisticsIdCombobox")
 	public String logisticsIdCombobox() {
 		List<OrderInfo> olist = warehouseService.selectOrderList();
 		return JSON.toJSONString(olist);
 	}
-	//更新物流信息
+
+	/**
+	 * 
+	 * @MethodName: logisticsInfoUpdate
+	 * @param logisticsInfoUpdate
+	 * @return String
+	 * @Description: TODO
+	 * @date 2020-07-16 07:11:15
+	 */
+	// 更新物流信息
 	@ResponseBody
 	@RequestMapping("logisticsInfoUpdate")
 	public String logisticsInfoUpdate(LogisticsInfo logisticsInfoUpdate) {
@@ -187,5 +340,5 @@ public class WarehouseController {
 			msg.setMessage(e.getMessage());
 		}
 		return JSON.toJSONString(msg);
-	}	
+	}
 }
